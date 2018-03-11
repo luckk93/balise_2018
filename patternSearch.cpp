@@ -70,13 +70,15 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
     most_extern_1= Point(0,0);
     most_extern_2= Point(0,0);
-    for(int i=0; i<4; i++){
-        if(most_extern_1.x<polaprox[i].x){
-            most_extern_2=most_extern_1;
-            most_extern_1=polaprox[i];
-        }
-        else if(most_extern_2.x<polaprox[i].x){
-            most_extern_2=polaprox[i];
+    if(!polaprox.empty()){
+        for(int i=0; i<4; i++){
+            if(most_extern_1.x<polaprox[i].x){
+                most_extern_2=most_extern_1;
+                most_extern_1=polaprox[i];
+            }
+            else if(most_extern_2.x<polaprox[i].x){
+                most_extern_2=polaprox[i];
+            }
         }
     }
     most_extern_1.x+=5;
@@ -130,16 +132,18 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
     }
     most_extern_1= Point(10000,0);
     most_extern_2= Point(10000,0);
-    for(int i=0; i<4; i++){
-        //printf("\n X: %d ", polaprox[i].x);
-        if(most_extern_1.x>polaprox[i].x){
-            most_extern_2=most_extern_1;
-            most_extern_1=polaprox[i];
-            //printf(" 1\n");
-        }
-        else if(most_extern_2.x>polaprox[i].x){
-            most_extern_2=polaprox[i];
-            //printf(" 2\n");
+    if(!polaprox.empty()){
+        for(int i=0; i<4; i++){
+            //printf("\n X: %d ", polaprox[i].x);
+            if(most_extern_1.x>polaprox[i].x){
+                most_extern_2=most_extern_1;
+                most_extern_1=polaprox[i];
+                //printf(" 1\n");
+            }
+            else if(most_extern_2.x>polaprox[i].x){
+                most_extern_2=polaprox[i];
+                //printf(" 2\n");
+            }
         }
     }
     most_extern_1.x-=5;
