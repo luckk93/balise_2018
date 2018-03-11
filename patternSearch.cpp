@@ -152,6 +152,8 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         pathern_corner_zone.push_back(most_extern_2);
         pathern_corner_zone.push_back(most_extern_1);
     }
+    
+    imwrite( "patterncont.jpg", contourImg );
 
     /***************************************************************************/
     //Search in pathern zone
@@ -239,13 +241,13 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         inRange(PathZoneBlackMask, Scalar(15,70,50),Scalar(35,256,256), squareSearch[3]);   //yellow
         inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,256,70), squareSearch[4]);       //black
 
-        
+        /*
         imwrite( "patternblue.jpg", squareSearch[0] );
         imwrite( "patternorange.jpg", squareSearch[1] );
         imwrite( "patterngreen.jpg", squareSearch[2] );
         imwrite( "patternyellow.jpg", squareSearch[3] );
         imwrite( "patternblack.jpg", squareSearch[4] );
-        
+        */
         
         vector<Point> squareContours[5];
 
