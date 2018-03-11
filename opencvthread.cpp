@@ -74,6 +74,9 @@ void *openCVThread(void *t){
       strcat(opencvstringpattern, temp);
     }
   }
+  else{
+    sprintf(opencvstringpattern,"No pattern detected");
+  }
   // pthread_exit(NULL);
   
     strcat(opencvstring, opencvstringpattern);
@@ -118,11 +121,11 @@ void *openCVThread(void *t){
     show_save_mode =0;
     
     //sprintf(opencvstring,"center %d %d  size  %d  %d, referenceSize %d  ",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
-    printf("center %d %d  size  %d  %d, referenceSize %d  ",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+    //printf("center %d %d  size  %d  %d, referenceSize %d  ",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
   
   if(!siftAnalisys(analysingImgBGR, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
     //sprintf(opencvstring,"Error loading Sift3\n");
-     sprintf(opencvstring,"Error center %d %d  size  %d  %d, referenceSize %d  ",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+     sprintf(opencvstring,"Error center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
     //pthread_exit(NULL);
   }
   else{
