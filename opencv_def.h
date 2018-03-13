@@ -1,6 +1,7 @@
 #ifndef opencv_def_H
 #define opencv_def_H
 
+  #include "def.h"
   #include "opencv2/imgproc/imgproc.hpp"
   #include <opencv2/core/core.hpp>
   #include <opencv2/highgui/highgui.hpp>
