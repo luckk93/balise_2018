@@ -23,6 +23,6 @@
   bool preload_sift();
   bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &calibrcolor, Point &referenceCenter, int &diameter, int show_save);
   
-  bool recalibration(char &(opencvstringsift[]));
+  bool recalibration(char &(*opencvstringsift));
 
 #endif
