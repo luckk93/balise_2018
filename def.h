@@ -128,6 +128,7 @@
   void initwithfiles(void);
   
   //initcamera.cpp
+  void calibrationfc();
   void stop_capturing (int * fd);
   void start_capturing (int * fd, uint32_t * n_buffers );
   void uninit_device (uint32_t * n_buffers, struct buffer * buffers);
