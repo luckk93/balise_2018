@@ -5,8 +5,8 @@ using namespace std;
 using namespace cv;
 
 char opencvstring[200];
-char opencvstringsift[100];
-char opencvstringpattern[100];
+char opencvstringsift[200];
+char opencvstringpattern[200];
 
 bool getImageOpenCV(Mat &BGRImage);
 
