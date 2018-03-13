@@ -314,7 +314,7 @@ bool recalibration(char (&opencvstringsift)[200]){
         return false;
     }
     
-    if(getImageOpenCV(siftImg)){
+    if(!getImageOpenCV(siftImg)){
         sprintf(opencvstringsift,"Error loading Image2\n");
         return false;
     }
@@ -331,8 +331,7 @@ bool recalibration(char (&opencvstringsift)[200]){
             sprintf(opencvstringsift,"Error loading Image\n");
             return false;
         }
-        //imwrite( "new_image_BGR.jpg", analysingImgBGR );
-    
+        
         if(!(newReferenceCenter.x==0 || newReferenceCenter.y==0)){
           analysisCenter= newReferenceCenter;
         }
