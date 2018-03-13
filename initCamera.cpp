@@ -59,16 +59,12 @@ v4l2setting_t bandstopfilter={{V4L2_CID_BAND_STOP_FILTER ,62},{V4L2_CID_BAND_STO
 v4l2setting_t autoexposurebias={{V4L2_CID_AUTO_EXPOSURE_BIAS ,62},{V4L2_CID_AUTO_EXPOSURE_BIAS ,0}};
 
 //function to change color gain
-void calibrationfc(int * fd, uint32_t * n_buffers)
+void calibrationfc()
 {
 	stop_capturing (fd);					
-	bluebalance.set.value=2100;
-	redbalance.set.value=1300;
 	cmessage=ioctl(*fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
 	cmessage=ioctl(*fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
-	start_capturing (fd, n_buffers);						
-	fprintf(stderr,"\033[9;1H%d\t%d",bluebalance.set.value,redbalance.set.value);
-	
+	start_capturing (fd, n_buffers);							
 }
 
 void stop_capturing (int * fd)
