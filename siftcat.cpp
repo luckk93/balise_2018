@@ -327,8 +327,8 @@ bool recalibration(char (&opencvstringsift)[200]){
     
     while(true){
      
-        if(getImageOpenCV(siftImg)){
-            sprintf(opencvstringsift,"Error loading Image\n");
+        if(!getImageOpenCV(siftImg)){
+            sprintf(opencvstringsift,"Error loading Image3\n");
             return false;
         }
         
