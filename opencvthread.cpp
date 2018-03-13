@@ -1,4 +1,3 @@
-#include "def.h"
 #include "opencv_def.h"
 
 
