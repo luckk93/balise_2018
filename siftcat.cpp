@@ -325,7 +325,7 @@ bool recalibration(char (&opencvstringsift)[200]){
         sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
     }
     
-    while(){
+    while(true){
      
         if(getImageOpenCV(siftImg)){
             sprintf(opencvstringsift,"Error loading Image\n");
