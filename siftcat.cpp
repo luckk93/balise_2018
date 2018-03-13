@@ -289,7 +289,7 @@ vector<int> inRangePoints(vector< DMatch > matches, vector<KeyPoint> keypoints,f
 }
 
 
-bool recalibration(char &opencvstringsift[]){
+bool recalibration(char (&opencvstringsift)[200]){
     static bool siftinit = false;
     static Point analysisCenter;
     static Point analysisSize;
