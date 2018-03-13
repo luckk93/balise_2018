@@ -289,4 +289,95 @@ vector<int> inRangePoints(vector< DMatch > matches, vector<KeyPoint> keypoints,f
 }
 
 
+bool recalibration(char &opencvstringsift[]){
+    static bool siftinit = false;
+    static Point analysisCenter;
+    static Point analysisSize;
+    static Scalar calibrColor= Scalar(0,0,0);
+    static Point newReferenceCenter;
+    static int newReferenceSize;
+    static int show_save_mode =0;
+    Mat siftImg;
+    
+    if(!siftinit){
+        siftinit=preload_sift();
+        //full image center (1296,972) and size (2592,1944)
+        //test1 image zoom center (1950,150) and size(300,300) in 7 seconss
+         //test2 image zoom center (1950,450) and size(900,900) in 18 seconds
+        analysisCenter= Point(1950,150);
+        analysisSize= Point(300,300);
+        newReferenceCenter= analysisCenter;
+        newReferenceSize=analysisSize.x;
+    }
+    if(!siftinit){
+        sprintf(opencvstringsift,"Error loading Sift1\n");
+        return false;
+    }
+    
+    if(getImageOpenCV(siftImg)){
+        sprintf(opencvstringsift,"Error loading Image2\n");
+        return false;
+    }
+    if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
+        sprintf(opencvstringsift,"Error loading Sift2\n");
+    }
+    else{
+        sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
+    }
+    
+    while(){
+     
+        if(getImageOpenCV(siftImg)){
+            sprintf(opencvstringsift,"Error loading Image\n");
+            return false;
+        }
+        //imwrite( "new_image_BGR.jpg", analysingImgBGR );
+    
+        if(!(newReferenceCenter.x==0 || newReferenceCenter.y==0)){
+          analysisCenter= newReferenceCenter;
+        }
+        if(newReferenceSize==0){
+          newReferenceSize=analysisSize.x;
+        }
+        newReferenceSize=newReferenceSize<<1;
+        if(newReferenceSize>WIDTH){
+          newReferenceSize=WIDTH;
+        }
+
+    
+        int xsize=newReferenceSize, ysize=newReferenceSize;
+        if(analysisCenter.x<xsize){
+          xsize=analysisCenter.x;
+        }
+        if((WIDTH-analysisCenter.x)<xsize){
+          xsize=(WIDTH-analysisCenter.x);
+        }
+        if(analysisCenter.y<ysize){
+          ysize=analysisCenter.y;
+        }
+        if((HEIGHT-analysisCenter.y)<ysize){
+          ysize=(HEIGHT-analysisCenter.y);
+        }
+
+        xsize=xsize<<1;
+        ysize=ysize<<1;
+        analysisSize= Point(xsize,ysize);
+        show_save_mode =0;
+    
+        if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
+            //sprintf(opencvstring,"Error loading Sift3\n");
+            sprintf(opencvstringsift,"Error Sift3 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+            //pthread_exit(NULL);
+        }
+        else{
+            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
+        }
+
+        sleep(1);
+        return true;
+    }
+    return true;
+}
+
+
 
