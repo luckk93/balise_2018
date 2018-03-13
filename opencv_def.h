@@ -16,9 +16,13 @@
 
   using namespace cv;
 
+  bool getImageOpenCV(Mat &BGRImage);
+
   bool patternSearch(Mat analyseImg, int (&pattern)[3]);
   
   bool preload_sift();
   bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &calibrcolor, Point &referenceCenter, int &diameter, int show_save);
+  
+  bool recalibration(char &opencvstringsift[]);
 
 #endif
