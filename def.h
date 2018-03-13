@@ -114,6 +114,8 @@
   
   //opencvthread.cpp
   extern char opencvstring[200];
+  extern char opencvstringsift[200];
+  extern char opencvstringpattern[200];
   
   //init.cpp
   void initChosed(int argc, char *argv[]);
