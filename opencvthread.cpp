@@ -67,5 +67,11 @@ bool getImageOpenCV(Mat &BGRImage){
   
   //imwrite( "new_image.jpg", analysingImgRGB );
   imwrite( "new_image_BGR.jpg", analysingImgBGR );
+  BGRImage=analysingImgBGR;
+
+  if(!(BGRImage.data)){
+    return false;
+  }
   
+  return true;
 }
