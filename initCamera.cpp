@@ -64,8 +64,6 @@ void calibrationfc()
 {
 	std::ofstream ofs;
         ofs.open ("debug.txt", std::ofstream::out);
-        ofs << redbalance.set.value << "\t" << bluebalance.set.value << "\t" << endl;
-        ofs.close();
 	stop_capturing (&fd);					
 	cmessage=ioctl(fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
 	ofs << bluebalance.set.value << " blue " << cmessage  << endl;
