@@ -68,9 +68,9 @@ void calibrationfc()
         ofs.close();
 	stop_capturing (&fd);					
 	cmessage=ioctl(fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
-	ofs << bluebalance.set.value << "  " << cmessage  << endl;
+	ofs << bluebalance.set.value << " blue " << cmessage  << endl;
 	cmessage=ioctl(fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
-	ofs << redbalance.set.value << "  " << cmessage  << endl;
+	ofs << redbalance.set.value << " red " << cmessage  << endl;
 	start_capturing (&fd, &n_buffers);
 	 ofs.close();
 	recapture=true;
