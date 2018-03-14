@@ -88,6 +88,7 @@
   //initcamera.cpp
   extern int fd;
   extern v4l2setting_t bluebalance,redbalance;
+  extern bool recapture;
   
   //pixelanalyse
   struct boule {
