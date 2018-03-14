@@ -27,6 +27,8 @@
   #include <pthread.h>
   
   #include <arpa/inet.h>
+
+  #include <fstream>
   
   #define CLEAR(x) memset (&(x), 0, sizeof (x))			
   #define DEBUG(str) if(debuger==1)printf(str)				//macro to printf a string if debug mode active
