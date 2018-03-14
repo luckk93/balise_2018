@@ -43,6 +43,8 @@ void *captureThread(void *t)
 	buffers = init_device (&fd, dev_name, WIDTH, HEIGHT, &n_buffers);
 
 	start_capturing (&fd, &n_buffers);
+	stop_capturing(&fd);
+	start_capturing (&fd, &n_buffers);
 while(!quitProgram){ 
 	
 		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
