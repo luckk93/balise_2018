@@ -44,6 +44,8 @@ void *captureThread(void *t)
 
 	start_capturing (&fd, &n_buffers);
 while(!quitProgram){ 
+	
+		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		fd_set fds;
 		struct timeval tv;
 		int r;
@@ -101,6 +103,8 @@ while(!quitProgram){
 		
 		//pixel analysis function
 		 bzero(message,sizeof(message));
+	
+		pthread_mutex_unlock(&mutex_imagecopy); //allow calibration 
 		
 		simplePixelAnalysis();
 		
