@@ -36,7 +36,7 @@ void *captureThread(void *t)
   
   open_device (&fd, dev_name);
   cmessage=ioctl(fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
-	cmessage=ioctl(fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
+  cmessage=ioctl(fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
   if(cmessage<0)
     errno_exit("awbbalance");
 
@@ -154,6 +154,9 @@ while(!quitProgram){
 		if(!recapture){
 			if (-1 == xioctl (fd, VIDIOC_QBUF, &buf))
 				errno_exit ("VIDIOC_QBUF pixel");
+		}
+		else{
+			recapture=false;
 		}
 		pthread_mutex_unlock(&mutex_imagecopy);  //allow calibration
 	
