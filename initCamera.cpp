@@ -61,10 +61,10 @@ v4l2setting_t autoexposurebias={{V4L2_CID_AUTO_EXPOSURE_BIAS ,62},{V4L2_CID_AUTO
 //function to change color gain
 void calibrationfc()
 {
-	stop_capturing (*fd);					
-	cmessage=ioctl(*fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
-	cmessage=ioctl(*fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
-	start_capturing (*fd, n_buffers);							
+	stop_capturing (&fd);					
+	cmessage=ioctl(fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
+	cmessage=ioctl(fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
+	start_capturing (&fd, n_buffers);							
 }
 
 void stop_capturing (int * fd)
