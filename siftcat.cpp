@@ -18,6 +18,8 @@ Ptr<Feature2D> f2d;
 vector<KeyPoint> keypoints_1;
 Mat descriptors_1;
 
+void awbcolorchange(int bluediff, int reddiff);
+
 bool preload_sift(){
     img_1 = imread( "octocat.png");
     if( !img_1.data ){
