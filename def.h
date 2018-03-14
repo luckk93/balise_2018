@@ -29,6 +29,8 @@
   #include <arpa/inet.h>
 
   #include <fstream>
+
+  using namespace std;
   
   #define CLEAR(x) memset (&(x), 0, sizeof (x))			
   #define DEBUG(str) if(debuger==1)printf(str)				//macro to printf a string if debug mode active
