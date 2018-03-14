@@ -393,8 +393,8 @@ void awbcolorchange(int bluediff, int reddiff){
         
         bluediff*=2;                    //regulation proportianal factor
         reddiff*=2;
-        bluebalance.set=bluebalance.set+bluediff;
-        redbalance.set= redbalance.set+redddiff;
+        bluebalance.set.value+=bluediff;
+        redbalance.set.value+=redddiff;
             
         void calibrationfc();
         
@@ -402,7 +402,7 @@ void awbcolorchange(int bluediff, int reddiff){
     
         std::ofstream ofs;
         ofs.open ("awb.conf", std::ofstream::out);
-        ofs << redbalance.set << "\t" << bluebalance.set << "\t" << endl;
+        ofs << redbalance.set.value << "\t" << bluebalance.set.value << "\t" << endl;
         ofs.close();
 }
 
