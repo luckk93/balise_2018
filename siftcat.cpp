@@ -371,12 +371,36 @@ bool recalibration(char (&opencvstringsift)[200]){
         else{
             sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
         }
-
+        
+        int bluediff=(calibrColor[1]-calibrColor[0]);
+        int reddiff=(calibrColor[1]-calibrColor[2]);
+        if((abs(bluediff)>4)||(abs(reddiff)>4)){
+            awbcolorchange(bluediff, reddiff);
+        }
+        else{
+            return true;
+        }
         sleep(1);
-        return true;
     }
     return true;
 }
 
 
+void awbcolorchange(int bluediff, int reddiff){
+        pthread_mutex_lock(&mutex_imagecopy);
+        
+        bluediff*=2;                    //regulation proportianal factor
+        reddiff*=2;
+        bluebalance.set+=bluediff;
+        redbalance.set+=redddiff;
+            
+        void calibrationfc();
+        
+        pthread_mutex_unlock(&mutex_imagecopy);
+    
+        std::ofstream ofs;
+        ofs.open ("awb.conf", std::ofstream::out);
+        ofs << redbalance.set << "\t" << bluebalance.set << "\t" << endl;
+        ofs.close();
+}
 
