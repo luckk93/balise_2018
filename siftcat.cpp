@@ -394,7 +394,7 @@ void awbcolorchange(int bluediff, int reddiff){
         bluediff*=2;                    //regulation proportianal factor
         reddiff*=2;
         bluebalance.set.value+=bluediff;
-        redbalance.set.value+=redddiff;
+        redbalance.set.value+=reddiff;
             
         void calibrationfc();
         
