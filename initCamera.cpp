@@ -100,7 +100,7 @@ void start_capturing (int * fd, uint32_t * n_buffers )
 		buf.index       = i;
 
 		if (-1 == xioctl (*fd, VIDIOC_QBUF, &buf))
-			errno_exit ("VIDIOC_QBUF");
+			errno_exit ("VIDIOC_QBUF Start");
 	}
 				
 	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
