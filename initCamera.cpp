@@ -2,6 +2,7 @@
 
 int fd;
 int cmessage;
+bool recapture=false;
 
 v4l2setting_t saturation={{V4L2_CID_SATURATION,50},{V4L2_CID_SATURATION,0}};
 v4l2setting_t sharpness={{V4L2_CID_SHARPNESS,62},{V4L2_CID_SHARPNESS,0}};
@@ -72,6 +73,7 @@ void calibrationfc()
 	ofs << redbalance.set.value << "  " << cmessage  << endl;
 	start_capturing (&fd, &n_buffers);
 	 ofs.close();
+	recapture=true;
 }
 
 void stop_capturing (int * fd)
