@@ -6,6 +6,7 @@ char* bufptr = (char*) malloc (WIDTH*HEIGHT*4);
 struct buffer *buffers = NULL; 
 struct v4l2_buffer buf;//needed for memory mapping
 int message[MESSAGESIZE];		//message buffer
+uint32_t            n_buffers;
 
 void errno_exit (const char *s)
 {
@@ -28,7 +29,6 @@ void *captureThread(void *t)
 {
   int photocnt=0;
   int cmessage=0;
-  uint32_t            n_buffers;
   char                dev_name[]            = "/dev/video0";
   struct timeval start , stop;		//time counter to FPS deterrmination
   int fpscount=0;			//FPS counter and printing value
