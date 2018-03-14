@@ -269,7 +269,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
                 approxPolyDP(contours[i], polaprox, lencontour*aprox_factor, true);
                 if(maxlenght<lencontour)maxlenght=lencontour;
                 if(lencontour>50){
-                    printf("C%d:%d %f\n ",n,polaprox.size(), lencontour  );
+                    //printf("C%d:%d %f\n ",n,polaprox.size(), lencontour  );
                     drawContours( PathZone, contours, i, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
                     if(polaprox.size()<=4){
                         vect_polaprox.push_back(polaprox);
