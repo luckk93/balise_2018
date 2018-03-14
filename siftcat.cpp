@@ -406,7 +406,7 @@ void awbcolorchange(int bluediff, int reddiff){
         bluebalance.set.value+=bluediff;
         redbalance.set.value+=reddiff;
             
-        void calibrationfc();
+        calibrationfc();
         
         pthread_mutex_unlock(&mutex_imagecopy);
     
