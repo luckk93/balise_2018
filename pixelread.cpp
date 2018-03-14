@@ -45,9 +45,9 @@ void *captureThread(void *t)
 	start_capturing (&fd, &n_buffers);
 while(!quitProgram){ 
 	
+		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		stop_capturing(&fd);
 		start_capturing (&fd, &n_buffers);
-		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		fd_set fds;
 		struct timeval tv;
 		int r;
