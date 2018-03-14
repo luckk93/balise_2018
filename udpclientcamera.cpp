@@ -55,7 +55,9 @@ void *udpclientThread(void *t){
         }
       
 		bzero(terminalbuffer,sizeof(terminalbuffer));
-       
+       	sprintf(tempbuffer,"\033[4;1Hip: %d\t awb blue: %d\t awb red: %d\n",ipvalue,awbb,awbr);			//print awp and ip
+		strcat(terminalbuffer,tempbuffer);
+
 		sprintf(tempbuffer,"\033[11;1H\033[J\033[12;1H\r\033[KFPS: %i \033[12;10H", actfps);			//print on terminal FPS
 		strcat(terminalbuffer,tempbuffer);
 		if(tic){																					//print on terminal in alternate way tic and tac to be sure that the programe continue to work

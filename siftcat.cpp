@@ -95,7 +95,7 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
 
       vector<cluster> clusterInfo;
       clusterInfo = clusterVerification(good_matches, keypoints_2, 6, 500);
-      printf("Number of cluster %d\n", clusterInfo.size());
+      //printf("Number of cluster %d\n", clusterInfo.size());
       
       if(clusterInfo.size()!=1){
         return false;  
@@ -174,7 +174,7 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
 
           Mat imgCat = img_2_resize.clone();
           circle(imgCat,goodCluster.center*ratio_resize,goodCluster.diameter*2*ratio_resize,Scalar(255,0,0),2);
-          printf("Good cluster center x:%d  y:%d, diameter:%d\n",goodCluster.center.x,goodCluster.center.y,goodCluster.diameter);
+          //printf("Good cluster center x:%d  y:%d, diameter:%d\n",goodCluster.center.x,goodCluster.center.y,goodCluster.diameter);
 
           if(show_save==1)
               imshow( "CatZone", imgCat);
