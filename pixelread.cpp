@@ -152,7 +152,7 @@ while(!quitProgram){
 		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		//start new capture
 		if (-1 == xioctl (fd, VIDIOC_QBUF, &buf))
-			errno_exit ("VIDIOC_QBUF");
+			errno_exit ("VIDIOC_QBUF pixel");
 		pthread_mutex_unlock(&mutex_imagecopy);  //allow calibration
 	
 	}
