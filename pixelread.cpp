@@ -149,10 +149,11 @@ while(!quitProgram){
 				exit (EXIT_SUCCESS);
 			}
 		}
-		
+		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		//start new capture
 		if (-1 == xioctl (fd, VIDIOC_QBUF, &buf))
 			errno_exit ("VIDIOC_QBUF");
+		pthread_mutex_unlock(&mutex_imagecopy);  //allow calibration
 	
 	}
 	uninit_device (&n_buffers, buffers);
