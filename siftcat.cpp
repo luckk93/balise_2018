@@ -324,8 +324,18 @@ bool recalibration(char (&opencvstringsift)[200]){
         sprintf(opencvstringsift,"Error loading Sift2\n");
     }
     else{
-        sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
+        sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2], redbalance.set.value, bluebalance.set.value);
     }
+    
+    int bluediff=(calibrColor[1]-calibrColor[0]);
+    int reddiff=(calibrColor[1]-calibrColor[2]);
+    if((abs(bluediff)>4)||(abs(reddiff)>4)){
+        awbcolorchange(bluediff, reddiff);
+    }
+    else{
+        return true;
+    }
+    sleep(4);
     
     while(true){
      
@@ -371,11 +381,11 @@ bool recalibration(char (&opencvstringsift)[200]){
             //pthread_exit(NULL);
         }
         else{
-            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
+            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2],redbalance.set.value, bluebalance.set.value);
         }
         
-        int bluediff=(calibrColor[1]-calibrColor[0]);
-        int reddiff=(calibrColor[1]-calibrColor[2]);
+        bluediff=(calibrColor[1]-calibrColor[0]);
+        reddiff=(calibrColor[1]-calibrColor[2]);
         if((abs(bluediff)>4)||(abs(reddiff)>4)){
             awbcolorchange(bluediff, reddiff);
         }
