@@ -46,8 +46,6 @@ void *captureThread(void *t)
 while(!quitProgram){ 
 	
 		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
-		stop_capturing(&fd);
-		start_capturing (&fd, &n_buffers);
 		fd_set fds;
 		struct timeval tv;
 		int r;
@@ -106,7 +104,7 @@ while(!quitProgram){
 		//pixel analysis function
 		 bzero(message,sizeof(message));
 	
-		pthread_mutex_unlock(&mutex_imagecopy); //allow calibration 
+		//pthread_mutex_unlock(&mutex_imagecopy); //allow calibration 
 		
 		simplePixelAnalysis();
 		
@@ -151,7 +149,7 @@ while(!quitProgram){
 				exit (EXIT_SUCCESS);
 			}
 		}
-		pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
+		//pthread_mutex_lock(&mutex_imagecopy);  //block if doing calibration
 		//start new capture
 		if(!recapture){
 			if (-1 == xioctl (fd, VIDIOC_QBUF, &buf))
