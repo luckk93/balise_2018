@@ -335,7 +335,7 @@ bool recalibration(char (&opencvstringsift)[200]){
     else{
         return true;
     }
-    sleep(4);
+    sleep(1);
     
     while(true){
      
