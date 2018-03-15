@@ -99,6 +99,7 @@
   struct data {
   unsigned int camera_id;
   struct boule boules[6];
+  int pattern[3];
   };
   
   extern int ballinfonum;
