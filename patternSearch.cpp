@@ -274,6 +274,13 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         vector<Point> squareContours[5];
 
         for(int n=0; n<5; n++){
+        	int erosion_size=2;
+        	Mat element = getStructuringElement( MORPH_RECT,
+                                       Size( 2*erosion_size + 1, 2*erosion_size+1 ),
+                                       Point( erosion_size, erosion_size ) );
+
+  			/// Apply the erosion operation
+  			erode( squareSearch[n], squareSearch[n], element );
             findContours( squareSearch[n], contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
             sortContours(contours);
             filterNotSquareContours(contours);
