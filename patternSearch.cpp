@@ -1,4 +1,5 @@
 #include "opencv_def.h"
+#include <algorithm>
 
 using namespace std;
 using namespace cv;
@@ -9,6 +10,24 @@ struct cont_size_index{
 };
 
 bool isSquare(vector<Point> polaprox);
+
+void sortContours(vector<vector<Point>>& contours)
+{
+	sort(contours.begin(), contours.end(), [](const vector<Point> & a, const vector<Point> & b) -> bool {
+	    return arcLength(a, true) < arcLength(b, true); 
+	});
+}
+
+void filterNotSquareContours(vector<vector<Point>>& contours)
+{
+	remove_if(contours.begin(), contours.end(), [](const vector<Point>& contour) {
+		double aprox_factor = 0.04;
+		arcLength(contour, true);
+		vector<Point> polaprox;
+		approxPolyDP(contour, polaprox, lencontour*aprox_factor, true);
+		return !isSquare(polaprox);
+	});
+}
 
 bool patternSearch(Mat analyseImg, int (&pattern)[3])
 {
@@ -261,32 +280,18 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
             findContours( squareSearch[n], contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
             int maxlenght=0;
             vect_polaprox.clear();
-            for( unsigned int i = 0; i< contours.size(); i++ ){
-                lencontour=arcLength(contours[i], true);
-                approxPolyDP(contours[i], polaprox, lencontour*aprox_factor, true);
-                if(maxlenght<lencontour)maxlenght=lencontour;
-                if(lencontour>50){
-                    //printf("C%d:%d %f\n ",n,polaprox.size(), lencontour  );
-                    drawContours( PathZone, contours, i, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
-                    if(polaprox.size()<=4){
-                        vect_polaprox.push_back(polaprox);
-                    }
-                }
+            filterNotSquareContours(contours);
+            sortContours(contours);
+            if(!contours.empty()){
+            	approxPolyDP(contours[0], polaprox, arcLength(contours[0],true)*aprox_factor, true);
+            	drawContours( PathZone, contours, i, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
+            	squareContours[n]=polaprox;
             }
             polaprox.clear();
-
-            for( unsigned int i = 0; i< vect_polaprox.size(); i++ ){
-                    if((squareContours[n].empty())||(arcLength(squareContours[n], true)<arcLength(vect_polaprox[i], true))){
-                        squareContours[n]=vect_polaprox[i];
-                        FoundedSquares++;
-                    }
-                //}
-
-            }
         }
         
-        
         bool biggestsquares[5]={false,false,false,false,false};
+        
         for(int i1=0; i1<3;i1++){
           int  squarelenght=0;
           int bigindex=0;
@@ -305,7 +310,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         
 
         cont_size_index square[3];
-        for(int i=0; i<3;i++)square[i].center = Point(10000,10000);
+        for(int i=0; i<3;i++)square[i].center = Point(10000,10000);  //init
         for(int i=0; i<5;i++){
           if(biggestsquares[i]){
               if(!(squareContours[i].empty())){
@@ -342,28 +347,30 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
 
 bool isSquare(vector<Point> polaprox){
+	if(polaprox.size() != 4){
+		return false;
+	}
+    int Ax=polaprox[0].x-polaprox[1].x, Ay=polaprox[0].y-polaprox[1].y;
+    int Bx=polaprox[1].x-polaprox[2].x, By=polaprox[1].y-polaprox[2].y;
+    int Cx=polaprox[2].x-polaprox[3].x, Cy=polaprox[2].y-polaprox[3].y;
+    int Dx=polaprox[3].x-polaprox[0].x, Dy=polaprox[3].y-polaprox[0].y;
+    double A = Ax*Ax+Ay*Ay,B=Bx*Bx+By*By,C=Cx*Cx+Cy*Cy,D=Dx*Dx+Dy*Dy;
+    A=sqrt(A); B=sqrt(B); C=sqrt(C); D=sqrt(D);
 
-        int Ax=polaprox[0].x-polaprox[1].x, Ay=polaprox[0].y-polaprox[1].y;
-        int Bx=polaprox[1].x-polaprox[2].x, By=polaprox[1].y-polaprox[2].y;
-        int Cx=polaprox[2].x-polaprox[3].x, Cy=polaprox[2].y-polaprox[3].y;
-        int Dx=polaprox[3].x-polaprox[0].x, Dy=polaprox[3].y-polaprox[0].y;
-        double A = Ax*Ax+Ay*Ay,B=Bx*Bx+By*By,C=Cx*Cx+Cy*Cy,D=Dx*Dx+Dy*Dy;
-        A=sqrt(A); B=sqrt(B); C=sqrt(C); D=sqrt(D);
-
-        if((A*1.15>C)&&(C>0.87*A)){
-            if((B*1.15>D)&&(D>0.87*B)){
-                if(abs(Ax)<abs(Bx)){
-                    if(B<A){
-                        if(B>A*0.3)return true;
-                    }
+    if((A*1.15>C)&&(C>0.87*A)){
+        if((B*1.15>D)&&(D>0.87*B)){
+            if(abs(Ax)<abs(Bx)){
+                if(B<A){
+                    if(B>A*0.3)return true;
                 }
-                else{
-                    if(A<B){
-                        if(A>B*0.3)return true;
-                    }
+            }
+            else{
+                if(A<B){
+                    if(A>B*0.3)return true;
                 }
             }
         }
-        return false;
+    }
+    return false;
 }
 
