@@ -62,15 +62,10 @@ v4l2setting_t autoexposurebias={{V4L2_CID_AUTO_EXPOSURE_BIAS ,62},{V4L2_CID_AUTO
 //function to change color gain
 void calibrationfc()
 {
-	std::ofstream ofs;
-        ofs.open ("debug.txt", std::ofstream::out);
 	stop_capturing (&fd);					
 	cmessage=ioctl(fd,VIDIOC_S_CTRL,&bluebalance.set);				//set blue gain 
-	ofs << bluebalance.set.value << " blue " << cmessage  << endl;
 	cmessage=ioctl(fd,VIDIOC_S_CTRL,&redbalance.set);				//set red gain
-	ofs << redbalance.set.value << " red " << cmessage  << endl;
 	start_capturing (&fd, &n_buffers);
-	 ofs.close();
 	recapture=true;
 }
 

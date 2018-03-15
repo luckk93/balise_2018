@@ -256,9 +256,6 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         vector<Point> squareContours[5];
 
         int FoundedSquares=0;
-        
-        std::ofstream ofs;
-        ofs.open ("debug.txt", std::ofstream::out);
 
         for(int n=0; n<5; n++){
             findContours( squareSearch[n], contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
@@ -282,7 +279,6 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
                     if((squareContours[n].empty())||(arcLength(squareContours[n], true)<arcLength(vect_polaprox[i], true))){
                         squareContours[n]=vect_polaprox[i];
                         FoundedSquares++;
-                        ofs << n << " " << i << " " << arcLength(squareContours[n], true) << " "<< arcLength(vect_polaprox[i], true) << endl;
                     }
                 //}
 
@@ -305,10 +301,8 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
             }
           }
           biggestsquares[bigindex]=true;
-          ofs << "big " << bigindex << " lenght " << arcLength(squareContours[bigindex], true) << endl;
         }
         
-        ofs.close();
 
         cont_size_index square[3];
         for(int i=0; i<3;i++)square[i].center = Point(10000,10000);
