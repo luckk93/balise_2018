@@ -27,11 +27,11 @@ void *openCVThread(void *t){
     for(int i=0; i<3;i++){
       lastvalue.pattern[i]=pattern[i];
       switch(pattern[i]){
-        case 0: sprintf(temp,"blue "); break;
-        case 1: sprintf(temp,"orange "); break;
-        case 2: sprintf(temp,"green "); break;
-        case 3: sprintf(temp,"yellow "); break;
-        case 4: sprintf(temp,"black "); break;
+        case 1: sprintf(temp,"blue "); break;
+        case 2: sprintf(temp,"orange "); break;
+        case 3: sprintf(temp,"green "); break;
+        case 4: sprintf(temp,"yellow "); break;
+        case 5: sprintf(temp,"black "); break;
         default:break;
       }
       strcat(opencvstringpattern, temp);

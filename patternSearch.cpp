@@ -337,7 +337,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
               }
             }
         }
-        for(int i=0; i<3; i++)pattern[i]=square[i].index;
+        for(int i=0; i<3; i++)pattern[i]=square[i].index+1;
     }
     else{
         return false;

@@ -18,8 +18,11 @@ void simplePixelAnalysis(){
 	int xbegy,xendy;
 	ballinfonum=0;
   
-  int h,v;
+  	int h,v;
 	float s;
+	for(int i=0; i<3; i++){
+		lastvalue.pattern[i]=0;
+	}
   		
 	//extreme point ball search methode
 
