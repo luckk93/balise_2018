@@ -11,7 +11,7 @@ struct cont_size_index{
 
 bool isSquare(vector<Point> polaprox);
 
-void sortContours(vector<vector<Point>>& contours)
+void sortContours(vector<vector<Point> >& contours)
 {
 	sort(contours.begin(), contours.end(), [](const vector<Point> & a, const vector<Point> & b) -> bool {
 	    return arcLength(a, true) < arcLength(b, true); 
@@ -22,9 +22,8 @@ void filterNotSquareContours(vector<vector<Point>>& contours)
 {
 	remove_if(contours.begin(), contours.end(), [](const vector<Point>& contour) {
 		double aprox_factor = 0.04;
-		arcLength(contour, true);
 		vector<Point> polaprox;
-		approxPolyDP(contour, polaprox, lencontour*aprox_factor, true);
+		approxPolyDP(contour, polaprox, arcLength(contour, true)*aprox_factor, true);
 		return !isSquare(polaprox);
 	});
 }
@@ -274,17 +273,14 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         
         vector<Point> squareContours[5];
 
-        int FoundedSquares=0;
-
         for(int n=0; n<5; n++){
             findContours( squareSearch[n], contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
-            int maxlenght=0;
             vect_polaprox.clear();
             filterNotSquareContours(contours);
             sortContours(contours);
             if(!contours.empty()){
             	approxPolyDP(contours[0], polaprox, arcLength(contours[0],true)*aprox_factor, true);
-            	drawContours( PathZone, contours, i, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
+            	drawContours( PathZone, contours, 0, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
             	squareContours[n]=polaprox;
             }
             polaprox.clear();
