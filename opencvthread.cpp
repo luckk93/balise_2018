@@ -34,6 +34,7 @@ void *openCVThread(void *t){
         case 5: sprintf(temp,"black "); break;
         default:break;
       }
+      newdata=true;
       strcat(opencvstringpattern, temp);
     }
   }
