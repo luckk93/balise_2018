@@ -25,7 +25,7 @@ void *openCVThread(void *t){
   if(patternSearch(imagePattern, pattern)){
     sprintf(opencvstringpattern,"The pattern is ");
     for(int i=0; i<3;i++){
-      lastvalue.pattern=pattern;
+      lastvalue.pattern[i]=pattern[i];
       switch(pattern[i]){
         case 0: sprintf(temp,"blue "); break;
         case 1: sprintf(temp,"orange "); break;
