@@ -1,6 +1,6 @@
 CC = g++ 
 
-CFLAGS  = -Wall 
+CFLAGS  = -Wall -std=c++11 
 LDFLAGS = -lm -lpthread
 OPENCVFLAGS = `pkg-config --cflags opencv` `pkg-config --libs opencv`
 
