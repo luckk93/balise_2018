@@ -275,9 +275,8 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
         for(int n=0; n<5; n++){
             findContours( squareSearch[n], contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
-            vect_polaprox.clear();
-            filterNotSquareContours(contours);
             sortContours(contours);
+            filterNotSquareContours(contours);
             if(!contours.empty()){
             	approxPolyDP(contours[0], polaprox, arcLength(contours[0],true)*aprox_factor, true);
             	drawContours( PathZone, contours, 0, Scalar(255,0,255), 1, 8, hierarchy, 0, Point() );
