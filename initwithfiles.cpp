@@ -25,6 +25,7 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 
 	//get trigger values from color.conf file
 	int value=0;
+	/*
 	FILE * pFile4;
 	pFile4=fopen("color.conf","rb");
 	if(pFile4==NULL)perror("Error opening file");
@@ -371,6 +372,7 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 		value=fgetc(pFile4);		
 	}
 	fclose(pFile4);
+	*/
 	
 	value=0;
 	FILE * pFile5;
@@ -406,8 +408,8 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 	printf("ip: %d\t awb blue: %d\t awb red: %d\n",ipvalue,awbb,awbr);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhl1,colorhl2,colorhl3,colorhl4,colorhl5,colorhl6);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhh1,colorhh2,colorhh3,colorhh4,colorhh5,colorhh6);
-	printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",colorsl1,colorsl2,colorsl3,colorsl4,colorsl5,colorsl6);
-	printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",colorsh1,colorsh2,colorsh3,colorsh4,colorsh5,colorsh6);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorsl1,colorsl2,colorsl3,colorsl4,colorsl5,colorsl6);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorsh1,colorsh2,colorsh3,colorsh4,colorsh5,colorsh6);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvl1,colorvl2,colorvl3,colorvl4,colorvl5,colorvl6);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvh1,colorvh2,colorvh3,colorvh4,colorvh5,colorvh6);
 }
