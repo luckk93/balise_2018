@@ -41,7 +41,7 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 	bluebalance.set.value=awbb;
 	redbalance.set.value=awbr;
 	
-	myfilecawb.close();
+	myfileawb.close();
 
 	std::fstream myfilecat("./cat.conf", std::ios_base::in);
 	
