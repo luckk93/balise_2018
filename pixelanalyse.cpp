@@ -18,8 +18,7 @@ void simplePixelAnalysis(){
 	int xbegy,xendy;
 	ballinfonum=0;
   
-  	int h,v;
-	float s;
+  	int h,v,s;
 	for(int i=0; i<3; i++){
 		lastvalue.pattern[i]=0;
 	}
