@@ -61,3 +61,5 @@
 *.out
 
 *.app
+
+awb.conf
