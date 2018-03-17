@@ -41,8 +41,8 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define YFROM 500			//image high to start enemy search 
-  #define YTO 700				//image high to end enemy search 
+  #define YFROM 600			//image high to start enemy search 
+  #define YTO 1000				//image high to end enemy search 
   #define YSTEP 4				////image high steps for enemy search 
   
   #define WIDTH 2592			//image size
