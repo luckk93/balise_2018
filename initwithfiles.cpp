@@ -14,7 +14,7 @@ int ipvalue;
 void initwithfiles(void){
 if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file 
 		std::fstream myfileip("./ip.conf", std::ios_base::in);
-		myfileip >> colorhl1
+		myfileip >> ipvalue;
 		myfileip.close();
 	}
 
@@ -35,6 +35,8 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
     //get initial awb values
 
     std::fstream myfileawb("./awb.conf", std::ios_base::in);
+
+    int awbr,awbb;
 	
 	myfileawb >> awbr >> awbb;
 		
