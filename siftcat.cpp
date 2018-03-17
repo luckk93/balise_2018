@@ -306,8 +306,8 @@ bool recalibration(char (&opencvstringsift)[200]){
         //full image center (1296,972) and size (2592,1944)
         //test1 image zoom center (1950,150) and size(300,300) in 7 seconss
          //test2 image zoom center (1950,450) and size(900,900) in 18 seconds
-        analysisCenter= Point(300,900);
-        analysisSize= Point(600,600);
+        analysisCenter= Point(catposx,catposy);
+        analysisSize= Point(catsizex,catsizey);
         newReferenceCenter= analysisCenter;
         newReferenceSize=analysisSize.x;
     }

@@ -1,410 +1,58 @@
 #include "def.h"
 
 int colorhl1=30,    colorhl2=5,     colorhl3=82,    colorhl4=150,   colorhl5=35,    colorhl6=56;				//low trigger h color
-int	colorhh1=55,    colorhh2=20,    colorhh3=98,    colorhh4=185,   colorhh5=48,    colorhh6=113;			//high trigger h color
+int	colorhh1=55,    colorhh2=20,    colorhh3=98,    colorhh4=181,   colorhh5=48,    colorhh6=113;			//high trigger h color
 int colorsl1=64,    colorsl2=128,   colorsl3=165,   colorsl4=89,    colorsl5=178,   colorsl6=51;		//low trigger s color
 int	colorsh1=256,   colorsh2=256,   colorsh3=256,   colorsh4=256,   colorsh5=256,   colorsh6=256;				//high trigger s color
 int	colorvl1=50,    colorvl2=140,   colorvl3=165,   colorvl4=100,   colorvl5=70,    colorvl6=50;			//low trigger v color
-int	colorvh1=256,   colorvh2=260,   colorvh3=195,   colorvh4=260,   colorvh5=95,    colorvh6=180;		//high trigger v color
+int	colorvh1=256,   colorvh2=256,   colorvh3=195,   colorvh4=256,   colorvh5=95,    colorvh6=180;		//high trigger v color
+
+int catposx, catposy, catsizex, catsizey;
 
 int ipvalue;
 
 void initwithfiles(void){
 if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file 
-		FILE * pFile3;
-		pFile3=fopen("ip.conf","rb");
-		if(pFile3==NULL)perror("Error opening file");
-		ipvalue=0;
-		ipvalue=ipvalue+((fgetc(pFile3)-48)*100);
-		ipvalue=ipvalue+((fgetc(pFile3)-48)*10);
-		ipvalue=ipvalue+((fgetc(pFile3)-48));
-		message[0]=ipvalue;
-		fclose(pFile3);
+		std::fstream myfileip("./ip.conf", std::ios_base::in);
+		myfileip >> ipvalue;
+		myfileip.close();
 	}
 
 
 	//get trigger values from color.conf file
-	int value=0;
-	/*
-	FILE * pFile4;
-	pFile4=fopen("color.conf","rb");
-	if(pFile4==NULL)perror("Error opening file");
-	colorhl1=0;
-	value=fgetc(pFile4);
-	colorhl1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhl1*=10;
-		colorhl1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	value=fgetc(pFile4);
-	colorhl2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhl2*=10;
-		colorhl2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhl3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhl3*=10;
-		colorhl3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhl4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhl4*=10;
-		colorhl4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhl5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhl5*=10;
-		colorhl5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhl6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorhl6*=10;
-		colorhl6+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhh1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhh1*=10;
-		colorhh1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	value=fgetc(pFile4);
-	colorhh2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhh2*=10;
-		colorhh2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhh3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhh3*=10;
-		colorhh3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhh4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhh4*=10;
-		colorhh4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhh5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorhh5*=10;
-		colorhh5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorhh6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorhh6*=10;
-		colorhh6+=value-48;
-		value=fgetc(pFile4);		
-	}
 	
+	std::fstream myfilecolor("./color.conf", std::ios_base::in);
+
+    myfilecolor >> colorhl1 >> colorhl2 >> colorhl3 >> colorhl4 >> colorhl5 >> colorhl6;
+    myfilecolor >> colorhh1 >> colorhh2 >> colorhh3 >> colorhh4 >> colorhh5 >> colorhh6;
+    myfilecolor >> colorsl1 >> colorsl2 >> colorsl3 >> colorsl4 >> colorsl5 >> colorsl6;
+    myfilecolor >> colorsh1 >> colorsh2 >> colorsh3 >> colorsh4 >> colorsh5 >> colorsh6;
+    myfilecolor >> colorvl1 >> colorvl2 >> colorvl3 >> colorvl4 >> colorvl5 >> colorvl6;
+    myfilecolor >> colorvh1 >> colorvh2 >> colorvh3 >> colorvh4 >> colorvh5 >> colorvh6;
+
+    myfilecolor.close();
+
+    //get initial awb values
+
+    std::fstream myfileawb("./awb.conf", std::ios_base::in);
+
+    int awbr,awbb;
 	
-	
-	value=fgetc(pFile4);
-	colorsl1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsl1*=10;
-		colorsl1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	colorsl1/=100;
-	value=fgetc(pFile4);
-	colorsl2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsl2*=10;
-		colorsl2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsl2/=100;
-	value=fgetc(pFile4);
-	colorsl3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsl3*=10;
-		colorsl3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsl3/=100;
-	value=fgetc(pFile4);
-	colorsl4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsl4*=10;
-		colorsl4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsl4/=100;
-	value=fgetc(pFile4);
-	colorsl5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsl5*=10;
-		colorsl5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsl5/=100;
-	value=fgetc(pFile4);
-	colorsl6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorsl6*=10;
-		colorsl6+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsl6/=100;
-	value=fgetc(pFile4);
-	colorsh1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsh1*=10;
-		colorsh1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	colorsh1/=100;
-	value=fgetc(pFile4);
-	colorsh2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsh2*=10;
-		colorsh2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsh2/=100;
-	value=fgetc(pFile4);
-	colorsh3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsh3*=10;
-		colorsh3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsh3/=100;
-	value=fgetc(pFile4);
-	colorsh4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsh4*=10;
-		colorsh4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsh4/=100;
-	value=fgetc(pFile4);
-	colorsh5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorsh5*=10;
-		colorsh5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsh5/=100;
-	value=fgetc(pFile4);
-	colorsh6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorsh6*=10;
-		colorsh6+=value-48;
-		value=fgetc(pFile4);		
-	}
-	colorsh6/=100;
-	
-	
-	value=fgetc(pFile4);
-	colorvl1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvl1*=10;
-		colorvl1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	value=fgetc(pFile4);
-	colorvl2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvl2*=10;
-		colorvl2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvl3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvl3*=10;
-		colorvl3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvl4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvl4*=10;
-		colorvl4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvl5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvl5*=10;
-		colorvl5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvl6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorvl6*=10;
-		colorvl6+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvh1=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvh1*=10;
-		colorvh1+=value-48;
-		value=fgetc(pFile4);			
-	}
-	value=fgetc(pFile4);
-	colorvh2=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvh2*=10;
-		colorvh2+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvh3=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvh3*=10;
-		colorvh3+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvh4=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvh4*=10;
-		colorvh4+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvh5=value-48;
-	value=fgetc(pFile4);
-	while(value!=9)
-	{
-		colorvh5*=10;
-		colorvh5+=value-48;
-		value=fgetc(pFile4);		
-	}
-	value=fgetc(pFile4);
-	colorvh6=value-48;
-	value=fgetc(pFile4);
-	while(value!=10)
-	{
-		colorvh6*=10;
-		colorvh6+=value-48;
-		value=fgetc(pFile4);		
-	}
-	fclose(pFile4);
-	*/
-	
-	value=0;
-	FILE * pFile5;
-	pFile5=fopen("awb.conf","rb");
-	if(pFile5==NULL)perror("Error opening file");
-	
-	int awbr=0,awbb=0;
-	value=fgetc(pFile5);
-	awbr=value-48;
-	value=fgetc(pFile5);
-	while(value!=9)
-	{
-		awbr*=10;
-		awbr+=value-48;
-		value=fgetc(pFile5);			
-	}
-	value=fgetc(pFile5);
-	awbb=value-48;
-	value=fgetc(pFile5);
-	while(value!=9)
-	{
-		awbb*=10;
-		awbb+=value-48;
-		value=fgetc(pFile5);			
-	}
-					
+	myfileawb >> awbr >> awbb;
+		
 	bluebalance.set.value=awbb;
 	redbalance.set.value=awbr;
 	
-	fclose(pFile5);
+	myfileawb.close();
+
+	std::fstream myfilecat("./cat.conf", std::ios_base::in);
 	
-		printf("\033[4;1H\033[J");
+	myfilecat >> catposx >> catposy >> catsizex >> catsizey;
+	
+	myfilecat.close();
+
+	
+	printf("\033[4;1H\033[J");
 	printf("ip: %d\t awb blue: %d\t awb red: %d\n",ipvalue,awbb,awbr);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhl1,colorhl2,colorhl3,colorhl4,colorhl5,colorhl6);
 	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhh1,colorhh2,colorhh3,colorhh4,colorhh5,colorhh6);

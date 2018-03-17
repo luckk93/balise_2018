@@ -114,6 +114,8 @@
   extern int	colorvl1,colorvl2,colorvl3,colorvl4,colorvl5,colorvl6;			//low trigger v color 
   extern int	colorvh1,colorvh2,colorvh3,colorvh4,colorvh5,colorvh6;		//high trigger v color
   extern int ipvalue;
+  extern int catposx, catposy, catsizex, catsizey;
+
   //udpclientcamera.cpp
   extern char ballinfostring[6][60];
   extern bool newdata;
