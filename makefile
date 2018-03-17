@@ -23,7 +23,7 @@ photoclean:
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -g -c -MMD -o $@ $<
-	$(CC) $(CFLAGS) -S $< -o $*.s 
+	#$(CC) $(CFLAGS) -S $< -o $*.s 
 	
 
 $(EXEC): $(OBJ)
