@@ -254,22 +254,16 @@ ipvalue:
 	.ascii	"Error opening file\000"
 	.align	2
 .LC3:
-	.ascii	"color.conf\000"
-	.align	2
-.LC4:
 	.ascii	"awb.conf\000"
 	.align	2
-.LC5:
+.LC4:
 	.ascii	"\033[4;1H\033[J\000"
 	.align	2
-.LC6:
+.LC5:
 	.ascii	"ip: %d\011 awb blue: %d\011 awb red: %d\012\000"
 	.align	2
-.LC7:
+.LC6:
 	.ascii	"%d\011%d\011%d\011%d\011%d\011%d\012\000"
-	.align	2
-.LC8:
-	.ascii	"%.2f\011%.2f\011%.2f\011%.2f\011%.2f\011%.2f\012\000"
 	.text
 	.align	2
 	.global	_Z13initwithfilesv
@@ -285,22 +279,22 @@ _Z13initwithfilesv:
 	add	fp, sp, #8
 	.pad #44
 	sub	sp, sp, #44
-	ldr	r3, .L82
+	ldr	r3, .L9
 	ldr	r3, [r3]
 	cmp	r3, #1
 	bne	.L2
-	ldr	r0, .L82+4
-	ldr	r1, .L82+8
+	ldr	r0, .L9+4
+	ldr	r1, .L9+8
 	bl	fopen
 	mov	r3, r0
 	str	r3, [fp, #-28]
 	ldr	r3, [fp, #-28]
 	cmp	r3, #0
 	bne	.L3
-	ldr	r0, .L82+12
+	ldr	r0, .L9+12
 	bl	perror
 .L3:
-	ldr	r3, .L82+16
+	ldr	r3, .L9+16
 	mov	r2, #0
 	str	r2, [r3]
 	ldr	r0, [fp, #-28]
@@ -309,10 +303,10 @@ _Z13initwithfilesv:
 	sub	r3, r3, #48
 	mov	r2, #100
 	mul	r2, r2, r3
-	ldr	r3, .L82+16
+	ldr	r3, .L9+16
 	ldr	r3, [r3]
 	add	r3, r2, r3
-	ldr	r2, .L82+16
+	ldr	r2, .L9+16
 	str	r3, [r2]
 	ldr	r0, [fp, #-28]
 	bl	fgetc
@@ -323,73 +317,70 @@ _Z13initwithfilesv:
 	add	r3, r3, r2
 	mov	r3, r3, asl #1
 	mov	r2, r3
-	ldr	r3, .L82+16
+	ldr	r3, .L9+16
 	ldr	r3, [r3]
 	add	r3, r2, r3
-	ldr	r2, .L82+16
+	ldr	r2, .L9+16
 	str	r3, [r2]
 	ldr	r0, [fp, #-28]
 	bl	fgetc
 	mov	r3, r0
 	sub	r2, r3, #48
-	ldr	r3, .L82+16
+	ldr	r3, .L9+16
 	ldr	r3, [r3]
 	add	r3, r2, r3
-	ldr	r2, .L82+16
+	ldr	r2, .L9+16
 	str	r3, [r2]
-	ldr	r3, .L82+16
+	ldr	r3, .L9+16
 	ldr	r3, [r3]
-	ldr	r2, .L82+20
+	ldr	r2, .L9+20
 	str	r3, [r2]
 	ldr	r0, [fp, #-28]
 	bl	fclose
 .L2:
 	mov	r3, #0
 	str	r3, [fp, #-16]
-	ldr	r0, .L82+24
-	ldr	r1, .L82+8
+	mov	r3, #0
+	str	r3, [fp, #-16]
+	ldr	r0, .L9+24
+	ldr	r1, .L9+8
 	bl	fopen
 	mov	r3, r0
 	str	r3, [fp, #-32]
 	ldr	r3, [fp, #-32]
 	cmp	r3, #0
 	bne	.L4
-	ldr	r0, .L82+12
+	ldr	r0, .L9+12
 	bl	perror
 .L4:
-	ldr	r3, .L82+64
-	mov	r2, #0
-	str	r2, [r3]
+	mov	r3, #0
+	str	r3, [fp, #-20]
+	mov	r3, #0
+	str	r3, [fp, #-24]
 	ldr	r0, [fp, #-32]
 	bl	fgetc
 	mov	r3, r0
 	str	r3, [fp, #-16]
 	ldr	r3, [fp, #-16]
 	sub	r3, r3, #48
-	ldr	r2, .L82+64
-	str	r3, [r2]
+	str	r3, [fp, #-20]
 	ldr	r0, [fp, #-32]
 	bl	fgetc
 	mov	r3, r0
 	str	r3, [fp, #-16]
 	b	.L5
 .L6:
-	ldr	r3, .L82+64
-	ldr	r2, [r3]
+	ldr	r2, [fp, #-20]
 	mov	r3, r2
 	mov	r3, r3, asl #2
 	add	r3, r3, r2
 	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+64
-	str	r2, [r3]
+	str	r3, [fp, #-20]
 	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+64
-	ldr	r3, [r3]
+	sub	r3, r3, #48
+	ldr	r2, [fp, #-20]
 	add	r3, r2, r3
-	ldr	r2, .L82+64
-	str	r3, [r2]
+	str	r3, [fp, #-20]
 	ldr	r0, [fp, #-32]
 	bl	fgetc
 	mov	r3, r0
@@ -404,30 +395,24 @@ _Z13initwithfilesv:
 	str	r3, [fp, #-16]
 	ldr	r3, [fp, #-16]
 	sub	r3, r3, #48
-	ldr	r2, .L82+68
-	str	r3, [r2]
+	str	r3, [fp, #-24]
 	ldr	r0, [fp, #-32]
 	bl	fgetc
 	mov	r3, r0
 	str	r3, [fp, #-16]
 	b	.L7
 .L8:
-	ldr	r3, .L82+68
-	ldr	r2, [r3]
+	ldr	r2, [fp, #-24]
 	mov	r3, r2
 	mov	r3, r3, asl #2
 	add	r3, r3, r2
 	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+68
-	str	r2, [r3]
+	str	r3, [fp, #-24]
 	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+68
-	ldr	r3, [r3]
+	sub	r3, r3, #48
+	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
-	ldr	r2, .L82+68
-	str	r3, [r2]
+	str	r3, [fp, #-24]
 	ldr	r0, [fp, #-32]
 	bl	fgetc
 	mov	r3, r0
@@ -436,919 +421,149 @@ _Z13initwithfilesv:
 	ldr	r3, [fp, #-16]
 	cmp	r3, #9
 	bne	.L8
+	ldr	r2, .L9+28
+	ldr	r3, [fp, #-24]
+	str	r3, [r2, #4]
+	ldr	r2, .L9+32
+	ldr	r3, [fp, #-20]
+	str	r3, [r2, #4]
 	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+72
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L9
+	bl	fclose
+	ldr	r0, .L9+36
+	bl	printf
+	ldr	r3, .L9+16
+	ldr	r3, [r3]
+	ldr	r0, .L9+40
+	mov	r1, r3
+	ldr	r2, [fp, #-24]
+	ldr	r3, [fp, #-20]
+	bl	printf
+	ldr	r3, .L9+44
+	ldr	r4, [r3]
+	ldr	r3, .L9+48
+	ldr	lr, [r3]
+	ldr	r3, .L9+52
+	ldr	ip, [r3]
+	ldr	r3, .L9+56
+	ldr	r1, [r3]
+	ldr	r3, .L9+60
+	ldr	r2, [r3]
+	ldr	r3, .L9+64
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	ldr	r3, .L9+72
+	ldr	r4, [r3]
+	ldr	r3, .L9+76
+	ldr	lr, [r3]
+	ldr	r3, .L9+80
+	ldr	ip, [r3]
+	ldr	r3, .L9+84
+	ldr	r1, [r3]
+	ldr	r3, .L9+88
+	ldr	r2, [r3]
+	ldr	r3, .L9+92
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	ldr	r3, .L9+96
+	ldr	r4, [r3]
+	ldr	r3, .L9+100
+	ldr	lr, [r3]
+	ldr	r3, .L9+104
+	ldr	ip, [r3]
+	ldr	r3, .L9+108
+	ldr	r1, [r3]
+	ldr	r3, .L9+112
+	ldr	r2, [r3]
+	ldr	r3, .L9+116
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	ldr	r3, .L9+120
+	ldr	r4, [r3]
+	ldr	r3, .L9+124
+	ldr	lr, [r3]
+	ldr	r3, .L9+128
+	ldr	ip, [r3]
+	ldr	r3, .L9+132
+	ldr	r1, [r3]
+	ldr	r3, .L9+136
+	ldr	r2, [r3]
+	ldr	r3, .L9+140
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	ldr	r3, .L9+144
+	ldr	r4, [r3]
+	ldr	r3, .L9+148
+	ldr	lr, [r3]
+	ldr	r3, .L9+152
+	ldr	ip, [r3]
+	ldr	r3, .L9+156
+	ldr	r1, [r3]
+	ldr	r3, .L9+160
+	ldr	r2, [r3]
+	ldr	r3, .L9+164
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	ldr	r3, .L9+168
+	ldr	r4, [r3]
+	ldr	r3, .L9+172
+	ldr	lr, [r3]
+	ldr	r3, .L9+176
+	ldr	ip, [r3]
+	ldr	r3, .L9+180
+	ldr	r1, [r3]
+	ldr	r3, .L9+184
+	ldr	r2, [r3]
+	ldr	r3, .L9+188
+	ldr	r3, [r3]
+	str	r1, [sp]
+	str	r2, [sp, #4]
+	str	r3, [sp, #8]
+	ldr	r0, .L9+68
+	mov	r1, r4
+	mov	r2, lr
+	mov	r3, ip
+	bl	printf
+	sub	sp, fp, #8
+	@ sp needed
+	ldmfd	sp!, {r4, fp, pc}
 .L10:
-	ldr	r3, .L82+72
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+72
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+72
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+72
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L9:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L10
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+76
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L11
-.L12:
-	ldr	r3, .L82+76
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+76
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+76
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+76
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L11:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L12
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+80
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L13
-.L14:
-	ldr	r3, .L82+80
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+80
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+80
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+80
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L13:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L14
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+84
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L15
-.L16:
-	ldr	r3, .L82+84
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+84
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+84
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+84
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L15:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L16
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+88
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L17
-.L18:
-	ldr	r3, .L82+88
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+88
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+88
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+88
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L17:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L18
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+92
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L19
-.L20:
-	ldr	r3, .L82+92
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+92
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+92
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+92
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L19:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L20
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+96
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L21
-.L22:
-	ldr	r3, .L82+96
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+96
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+96
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+96
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L21:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L22
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+100
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L23
-.L24:
-	ldr	r3, .L82+100
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+100
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+100
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+100
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L23:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L24
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+104
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L25
-.L26:
-	ldr	r3, .L82+104
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+104
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+104
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+104
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L25:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L26
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+108
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L27
-.L28:
-	ldr	r3, .L82+108
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+108
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+108
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+108
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L27:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L28
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+112
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L29
-.L30:
-	ldr	r3, .L82+112
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+112
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+112
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+112
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L29:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L30
-	ldr	r3, .L82+112
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+112
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+116
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L31
-.L32:
-	ldr	r3, .L82+116
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+116
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+116
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+116
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L31:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L32
-	ldr	r3, .L82+116
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+116
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+120
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L33
-.L34:
-	ldr	r3, .L82+120
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+120
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+120
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+120
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L33:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L34
-	ldr	r3, .L82+120
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+120
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+124
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L35
-.L36:
-	ldr	r3, .L82+124
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+124
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+124
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+124
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L35:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L36
-	ldr	r3, .L82+124
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+124
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+128
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L37
-.L38:
-	ldr	r3, .L82+128
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+128
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+128
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+128
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L37:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L38
-	ldr	r3, .L82+128
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+128
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+132
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L39
-.L40:
-	ldr	r3, .L82+132
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+132
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+132
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+132
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L39:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L40
-	ldr	r3, .L82+132
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+132
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+136
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L41
-.L42:
-	ldr	r3, .L82+136
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+136
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+136
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+136
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L41:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L42
-	ldr	r3, .L82+136
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+136
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+140
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L43
-.L44:
-	ldr	r3, .L82+140
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+140
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+140
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+140
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L43:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L44
-	ldr	r3, .L82+140
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+140
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+144
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L45
-.L46:
-	ldr	r3, .L82+144
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+144
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+144
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+144
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L45:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L46
-	ldr	r3, .L82+144
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+144
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+148
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L47
-.L48:
-	ldr	r3, .L82+148
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+148
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+148
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+148
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L47:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L48
-	ldr	r3, .L82+148
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+148
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+152
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L49
-.L50:
-	ldr	r3, .L82+152
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+152
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+152
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+152
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L49:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L50
-	ldr	r3, .L82+152
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+152
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+156
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L51
-.L83:
 	.align	2
-.L82:
+.L9:
 	.word	wifi
 	.word	.LC0
 	.word	.LC1
@@ -1356,21 +571,17 @@ _Z13initwithfilesv:
 	.word	ipvalue
 	.word	message
 	.word	.LC3
-	.word	1374389535
-	.word	.LC4
-	.word	.LC1
-	.word	.LC2
 	.word	bluebalance
 	.word	redbalance
+	.word	.LC4
 	.word	.LC5
-	.word	ipvalue
-	.word	.LC6
 	.word	colorhl1
 	.word	colorhl2
 	.word	colorhl3
 	.word	colorhl4
 	.word	colorhl5
 	.word	colorhl6
+	.word	.LC6
 	.word	colorhh1
 	.word	colorhh2
 	.word	colorhh3
@@ -1389,7 +600,6 @@ _Z13initwithfilesv:
 	.word	colorsh4
 	.word	colorsh5
 	.word	colorsh6
-	.word	.LC8
 	.word	colorvl1
 	.word	colorvl2
 	.word	colorvl3
@@ -1402,720 +612,6 @@ _Z13initwithfilesv:
 	.word	colorvh4
 	.word	colorvh5
 	.word	colorvh6
-	.word	.LC7
-.L52:
-	ldr	r3, .L82+156
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+156
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+156
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+156
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L51:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L52
-	ldr	r3, .L82+156
-	ldr	r3, [r3]
-	ldr	r2, .L82+28
-	smull	r1, r2, r2, r3
-	mov	r2, r2, asr #5
-	mov	r3, r3, asr #31
-	rsb	r3, r3, r2
-	ldr	r2, .L82+156
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+164
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L53
-.L54:
-	ldr	r3, .L82+164
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+164
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+164
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+164
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L53:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L54
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+168
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L55
-.L56:
-	ldr	r3, .L82+168
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+168
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+168
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+168
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L55:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L56
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+172
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L57
-.L58:
-	ldr	r3, .L82+172
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+172
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+172
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+172
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L57:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L58
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+176
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L59
-.L60:
-	ldr	r3, .L82+176
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+176
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+176
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+176
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L59:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L60
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+180
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L61
-.L62:
-	ldr	r3, .L82+180
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+180
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+180
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+180
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L61:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L62
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+184
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L63
-.L64:
-	ldr	r3, .L82+184
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+184
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+184
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+184
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L63:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L64
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+188
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L65
-.L66:
-	ldr	r3, .L82+188
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+188
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+188
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+188
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L65:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L66
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+192
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L67
-.L68:
-	ldr	r3, .L82+192
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+192
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+192
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+192
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L67:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L68
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+196
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L69
-.L70:
-	ldr	r3, .L82+196
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+196
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+196
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+196
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L69:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L70
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+200
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L71
-.L72:
-	ldr	r3, .L82+200
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+200
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+200
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+200
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L71:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L72
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+204
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L73
-.L74:
-	ldr	r3, .L82+204
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+204
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+204
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+204
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L73:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L74
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, .L82+208
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L75
-.L76:
-	ldr	r3, .L82+208
-	ldr	r2, [r3]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	mov	r2, r3
-	ldr	r3, .L82+208
-	str	r2, [r3]
-	ldr	r3, [fp, #-16]
-	sub	r2, r3, #48
-	ldr	r3, .L82+208
-	ldr	r3, [r3]
-	add	r3, r2, r3
-	ldr	r2, .L82+208
-	str	r3, [r2]
-	ldr	r0, [fp, #-32]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L75:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #10
-	bne	.L76
-	ldr	r0, [fp, #-32]
-	bl	fclose
-	mov	r3, #0
-	str	r3, [fp, #-16]
-	ldr	r0, .L82+32
-	ldr	r1, .L82+36
-	bl	fopen
-	mov	r3, r0
-	str	r3, [fp, #-36]
-	ldr	r3, [fp, #-36]
-	cmp	r3, #0
-	bne	.L77
-	ldr	r0, .L82+40
-	bl	perror
-.L77:
-	mov	r3, #0
-	str	r3, [fp, #-20]
-	mov	r3, #0
-	str	r3, [fp, #-24]
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	str	r3, [fp, #-20]
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L78
-.L79:
-	ldr	r2, [fp, #-20]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	str	r3, [fp, #-20]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, [fp, #-20]
-	add	r3, r2, r3
-	str	r3, [fp, #-20]
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L78:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L79
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	str	r3, [fp, #-24]
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-	b	.L80
-.L81:
-	ldr	r2, [fp, #-24]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r3, r3, asl #1
-	str	r3, [fp, #-24]
-	ldr	r3, [fp, #-16]
-	sub	r3, r3, #48
-	ldr	r2, [fp, #-24]
-	add	r3, r2, r3
-	str	r3, [fp, #-24]
-	ldr	r0, [fp, #-36]
-	bl	fgetc
-	mov	r3, r0
-	str	r3, [fp, #-16]
-.L80:
-	ldr	r3, [fp, #-16]
-	cmp	r3, #9
-	bne	.L81
-	ldr	r2, .L82+44
-	ldr	r3, [fp, #-24]
-	str	r3, [r2, #4]
-	ldr	r2, .L82+48
-	ldr	r3, [fp, #-20]
-	str	r3, [r2, #4]
-	ldr	r0, [fp, #-36]
-	bl	fclose
-	ldr	r0, .L82+52
-	bl	printf
-	ldr	r3, .L82+56
-	ldr	r3, [r3]
-	ldr	r0, .L82+60
-	mov	r1, r3
-	ldr	r2, [fp, #-24]
-	ldr	r3, [fp, #-20]
-	bl	printf
-	ldr	r3, .L82+64
-	ldr	r4, [r3]
-	ldr	r3, .L82+68
-	ldr	lr, [r3]
-	ldr	r3, .L82+72
-	ldr	ip, [r3]
-	ldr	r3, .L82+76
-	ldr	r1, [r3]
-	ldr	r3, .L82+80
-	ldr	r2, [r3]
-	ldr	r3, .L82+84
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+212
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	ldr	r3, .L82+88
-	ldr	r4, [r3]
-	ldr	r3, .L82+92
-	ldr	lr, [r3]
-	ldr	r3, .L82+96
-	ldr	ip, [r3]
-	ldr	r3, .L82+100
-	ldr	r1, [r3]
-	ldr	r3, .L82+104
-	ldr	r2, [r3]
-	ldr	r3, .L82+108
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+212
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	ldr	r3, .L82+112
-	ldr	r4, [r3]
-	ldr	r3, .L82+116
-	ldr	lr, [r3]
-	ldr	r3, .L82+120
-	ldr	ip, [r3]
-	ldr	r3, .L82+124
-	ldr	r1, [r3]
-	ldr	r3, .L82+128
-	ldr	r2, [r3]
-	ldr	r3, .L82+132
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+160
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	ldr	r3, .L82+136
-	ldr	r4, [r3]
-	ldr	r3, .L82+140
-	ldr	lr, [r3]
-	ldr	r3, .L82+144
-	ldr	ip, [r3]
-	ldr	r3, .L82+148
-	ldr	r1, [r3]
-	ldr	r3, .L82+152
-	ldr	r2, [r3]
-	ldr	r3, .L82+156
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+160
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	ldr	r3, .L82+164
-	ldr	r4, [r3]
-	ldr	r3, .L82+168
-	ldr	lr, [r3]
-	ldr	r3, .L82+172
-	ldr	ip, [r3]
-	ldr	r3, .L82+176
-	ldr	r1, [r3]
-	ldr	r3, .L82+180
-	ldr	r2, [r3]
-	ldr	r3, .L82+184
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+212
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	ldr	r3, .L82+188
-	ldr	r4, [r3]
-	ldr	r3, .L82+192
-	ldr	lr, [r3]
-	ldr	r3, .L82+196
-	ldr	ip, [r3]
-	ldr	r3, .L82+200
-	ldr	r1, [r3]
-	ldr	r3, .L82+204
-	ldr	r2, [r3]
-	ldr	r3, .L82+208
-	ldr	r3, [r3]
-	str	r1, [sp]
-	str	r2, [sp, #4]
-	str	r3, [sp, #8]
-	ldr	r0, .L82+212
-	mov	r1, r4
-	mov	r2, lr
-	mov	r3, ip
-	bl	printf
-	sub	sp, fp, #8
-	@ sp needed
-	ldmfd	sp!, {r4, fp, pc}
 	.fnend
 	.size	_Z13initwithfilesv, .-_Z13initwithfilesv
 	.ident	"GCC: (Raspbian 4.9.2-10+deb8u1) 4.9.2"
