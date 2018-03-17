@@ -109,8 +109,8 @@
   //initwithfiles
   extern int colorhl1,colorhl2,colorhl3,colorhl4,colorhl5,colorhl6;				//low trigger h color	
   extern int	colorhh1,colorhh2,colorhh3,colorhh4,colorhh5,colorhh6;			//high trigger h color
-  extern float 	colorsl1,colorsl2,colorsl3,colorsl4,colorsl5,colorsl6;		//low trigger s color				
-  extern float	colorsh1,colorsh2,colorsh3,colorsh4,colorsh5,colorsh6;				//high trigger s color
+  extern int 	colorsl1,colorsl2,colorsl3,colorsl4,colorsl5,colorsl6;		//low trigger s color				
+  extern int	colorsh1,colorsh2,colorsh3,colorsh4,colorsh5,colorsh6;				//high trigger s color
   extern int	colorvl1,colorvl2,colorvl3,colorvl4,colorvl5,colorvl6;			//low trigger v color 
   extern int	colorvh1,colorvh2,colorvh3,colorvh4,colorvh5,colorvh6;		//high trigger v color
   extern int ipvalue;
@@ -148,7 +148,7 @@
   
   //pixeltreatement
   int rgb_to_hsv(unsigned char r, unsigned char g, unsigned char b,
-  			int* h, float * s, int* v);
+  			int* h, int * s, int* v);
         
   //imagetreatement
   void saveimage (char *bufptr,int savetype);

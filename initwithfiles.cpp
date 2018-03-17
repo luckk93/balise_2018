@@ -1,11 +1,11 @@
 #include "def.h"
 
-int colorhl1=60,colorhl2=10,colorhl3=165,colorhl4=310,colorhl5=70,colorhl6=140;				//low trigger h color	
-int	colorhh1=140,colorhh2=40,colorhh3=195,colorhh4=370,colorhh5=95,colorhh6=225;			//high trigger h color
-float 	colorsl1=0.25,colorsl2=0.49,colorsl3=0.65,colorsl4=0.35,colorsl5=0.70,colorsl6=0.20;		//low trigger s color				
-float	colorsh1=2,colorsh2=2,colorsh3=2,colorsh4=2,colorsh5=2,colorsh6=2;				//high trigger s color
-int	colorvl1=50,colorvl2=140,colorvl3=165,colorvl4=120,colorvl5=70,colorvl6=50;			//low trigger v color 
-int	colorvh1=180,colorvh2=260,colorvh3=195,colorvh4=260,colorvh5=95,colorvh6=180;		//high trigger v color
+int colorhl1=30,    colorhl2=5,     colorhl3=82,    colorhl4=150,   colorhl5=35,    colorhl6=56;				//low trigger h color
+int	colorhh1=55,    colorhh2=20,    colorhh3=98,    colorhh4=185,   colorhh5=48,    colorhh6=113;			//high trigger h color
+int colorsl1=64,    colorsl2=128,   colorsl3=165,   colorsl4=89,    colorsl5=178,   colorsl6=51;		//low trigger s color
+int	colorsh1=256,   colorsh2=256,   colorsh3=256,   colorsh4=256,   colorsh5=256,   colorsh6=256;				//high trigger s color
+int	colorvl1=50,    colorvl2=140,   colorvl3=165,   colorvl4=100,   colorvl5=70,    colorvl6=50;			//low trigger v color
+int	colorvh1=256,   colorvh2=260,   colorvh3=195,   colorvh4=260,   colorvh5=95,    colorvh6=180;		//high trigger v color
 
 int ipvalue;
 

@@ -1,6 +1,6 @@
 //function to convert RGB color to HSV color
 int rgb_to_hsv(unsigned char r, unsigned char g, unsigned char b,
-			int* h, float * s, int* v)
+			int* h, int * s, int* v)
 {
 	unsigned char min, max;
 	float delta;
@@ -27,7 +27,7 @@ int rgb_to_hsv(unsigned char r, unsigned char g, unsigned char b,
 	
 	delta=max-min;			//get difference between max and min
 	
-	if(max!=0)*s=delta/max;			//control if color is not a grey scale and set S of HSV as the difference over de max value
+	if(max!=0)*s=255*(delta/max);			//control if color is not a grey scale and set S of HSV as the difference over de max value
 	else{
 		*s=0;
 		*h=-1;
@@ -38,9 +38,9 @@ int rgb_to_hsv(unsigned char r, unsigned char g, unsigned char b,
 	if(r==max)hp=(g-b)/delta;						//set de angle in degree of H of HSV 
 	else if(g==max)hp=2+(b-r)/delta;
 	else hp=4+(r-g)/delta;
-	hp =hp*60;
+	hp =hp*30;
 
-	if(hp<0)hp+=360;							//put the angle between 0 and 360
+	if(hp<0)hp+=180;							//put the angle between 0 and 360
 	if(hp-(int)(hp)>0.5)hp++;
 	*h=(int)hp;
 	return 0;

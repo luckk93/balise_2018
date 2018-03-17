@@ -148,8 +148,8 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
             }
         }
     }
-    most_extern_1= Point(10000,0);
-    most_extern_2= Point(10000,0);
+    most_extern_1= Point(WIDTH,0);
+    most_extern_2= Point(WIDTH,0);
     if(!polaprox.empty()){
         for(int i=0; i<4; i++){
             //printf("\n X: %d ", polaprox[i].x);
@@ -184,7 +184,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
     boundRect = boundingRect(pathern_corner_zone);//enclose in Rect
     Mat PathZone, PathZoneWhiteMask, PathZoneBlackMask;
     PathZone=image;
-    if(boundRect.width>30 && boundRect.height>30)//ignore noise rects
+    if((boundRect.width>30 && boundRect.height>30)&&(boundRect.width<1000 && boundRect.height<500)//ignore noise rects
     {
         PathZone=image(boundRect);
         PathZoneBlackMask = PathZone.clone();
