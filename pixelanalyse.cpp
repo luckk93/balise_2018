@@ -150,7 +150,7 @@ void simplePixelAnalysis(){
 					if((ballcolor!=0)&&(ballinfonum<20)){					//generate the message for the server
 						pthread_mutex_lock(&mutex_udpout);
 						memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));						sprintf(ballinfostring[ballcolor],"%i  color: %i   \ty=%d from %d to %d  iter:%d",ballinfonum,ballcolor,y,topbeg,topend,iternumb);
-						sprintf(ballinfostring[ballcolor],"%i  color: %i   \ty=%d from %d to %d  iter:%d",ballinfonum,ballcolor,y,topbeg,topend,iternumb);
+						sprintf(ballinfostring[ballcolor],"%i  color: %i   \ty=%d from %d to %d  iter:%d",ballinfonum,ballcolor,y,xtopbeg,xtopend,iternumb);
 						//if(topbeg<xbeg)ballinfo[ballinfonum][0][0]=topbeg;
 						//else ballinfo[ballinfonum][0][0]=xbeg;
 						//if(topend>xend)ballinfo[ballinfonum][0][1]=topend;
