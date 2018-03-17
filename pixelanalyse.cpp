@@ -78,7 +78,7 @@ void simplePixelAnalysis(){
 					green=pixelvalue((xbegy),(topy),1);
 					blue=pixelvalue((xbegy),(topy),2);
 					rgb_to_hsv(red,green,blue,&h,&s,&v);
-					if((((h>=colorhl4)&&(h<colorhh4))||(h>=300))&&(takencolor[3]==0)){			//enter if color correspond to pink (first ball) and if no other pink ball detected
+					if((((h>=colorhl4)&&(h<colorhh4))||(h<5))&&(takencolor[3]==0)){			//enter if color correspond to pink (first ball) and if no other pink ball detected
 						//printf("\nrosa");
 						DEBUG(" f1 ");
 						xendy=xend-4;

@@ -44,6 +44,7 @@ void *openCVThread(void *t){
   // pthread_exit(NULL);
   */
   while(!quitProgram){
+    sleep(10);
     recalibration(opencvstringsift);
   }
   pthread_exit(NULL);
