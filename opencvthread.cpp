@@ -14,7 +14,7 @@ void *openCVThread(void *t){
   
   Mat imagePattern;
 
-  sleep(3);
+  sleep(1);
   
   recalibration(opencvstringsift);
   

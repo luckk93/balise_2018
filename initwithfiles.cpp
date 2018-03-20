@@ -1,11 +1,11 @@
 #include "def.h"
 
-int colorhl1=30,    colorhl2=5,     colorhl3=82,    colorhl4=150,   colorhl5=35,    colorhl6=56;				//low trigger h color
-int	colorhh1=55,    colorhh2=20,    colorhh3=98,    colorhh4=181,   colorhh5=48,    colorhh6=113;			//high trigger h color
-int colorsl1=64,    colorsl2=128,   colorsl3=165,   colorsl4=89,    colorsl5=178,   colorsl6=51;		//low trigger s color
-int	colorsh1=256,   colorsh2=256,   colorsh3=256,   colorsh4=256,   colorsh5=256,   colorsh6=256;				//high trigger s color
-int	colorvl1=50,    colorvl2=140,   colorvl3=165,   colorvl4=100,   colorvl5=70,    colorvl6=50;			//low trigger v color
-int	colorvh1=256,   colorvh2=256,   colorvh3=195,   colorvh4=256,   colorvh5=95,    colorvh6=180;		//high trigger v color
+int colorhllow1=30,   	colorhllow2=56,	 	colorhlup[4]=	{82,	150, 	35, 	5    };			//low trigger h color
+int	colorhhlow1=55,    	colorhhlow2=113,  	colorhhup[4]=	{98,	185, 	48,  	20   };			//high trigger h color
+int colorsllow1=64,    	colorsllow2=51,	   	colorslup[4]=	{165, 	89,   	178,	128  };			//low trigger s color
+int	colorshlow1=256,   	colorshlow2=256,   	colorshup[4]=	{256,   256, 	256,	256  };			//high trigger s color
+int	colorvllow1=50,    	colorvllow2=50,	   	colorvlup[4]=	{165, 	100,  	70,		140  };			//low trigger v color
+int	colorvhlow1=256,   	colorvhlow2=180,   	colorvhup[4]=	{195,  	260, 	95,		260  };			//high trigger v color
 
 int catposx, catposy, catsizex, catsizey;
 
@@ -23,12 +23,12 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 	
 	std::fstream myfilecolor("./color.conf", std::ios_base::in);
 
-    myfilecolor >> colorhl1 >> colorhl2 >> colorhl3 >> colorhl4 >> colorhl5 >> colorhl6;
-    myfilecolor >> colorhh1 >> colorhh2 >> colorhh3 >> colorhh4 >> colorhh5 >> colorhh6;
-    myfilecolor >> colorsl1 >> colorsl2 >> colorsl3 >> colorsl4 >> colorsl5 >> colorsl6;
-    myfilecolor >> colorsh1 >> colorsh2 >> colorsh3 >> colorsh4 >> colorsh5 >> colorsh6;
-    myfilecolor >> colorvl1 >> colorvl2 >> colorvl3 >> colorvl4 >> colorvl5 >> colorvl6;
-    myfilecolor >> colorvh1 >> colorvh2 >> colorvh3 >> colorvh4 >> colorvh5 >> colorvh6;
+    myfilecolor >> colorhllow1 >> colorhllow2 >> colorhlup[0] >> colorhlup[1] >> colorhlup[2] >> colorhlup[3];
+    myfilecolor >> colorhhlow1 >> colorhhlow2 >> colorhhup[0] >> colorhhup[1] >> colorhhup[2] >> colorhhup[3];
+    myfilecolor >> colorsllow1 >> colorsllow2 >> colorslup[0] >> colorslup[1] >> colorslup[2] >> colorslup[3];
+    myfilecolor >> colorshlow1 >> colorshlow2 >> colorshup[0] >> colorshup[1] >> colorshup[2] >> colorshup[3];
+    myfilecolor >> colorvllow1 >> colorvllow2 >> colorvlup[0] >> colorvlup[1] >> colorvlup[2] >> colorvlup[3];
+    myfilecolor >> colorvhlow1 >> colorvhlow2 >> colorvhup[0] >> colorvhup[1] >> colorvhup[2] >> colorvhup[3];
 
     myfilecolor.close();
 
@@ -54,10 +54,10 @@ if(wifi==1){				//If wifi flag active cet raspberry identfier from ip.conf file
 	
 	printf("\033[4;1H\033[J");
 	printf("ip: %d\t awb blue: %d\t awb red: %d\n",ipvalue,awbb,awbr);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhl1,colorhl2,colorhl3,colorhl4,colorhl5,colorhl6);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhh1,colorhh2,colorhh3,colorhh4,colorhh5,colorhh6);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorsl1,colorsl2,colorsl3,colorsl4,colorsl5,colorsl6);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorsh1,colorsh2,colorsh3,colorsh4,colorsh5,colorsh6);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvl1,colorvl2,colorvl3,colorvl4,colorvl5,colorvl6);
-	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvh1,colorvh2,colorvh3,colorvh4,colorvh5,colorvh6);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhllow1,colorhllow2,colorhlup[0],colorhlup[1],colorhlup[2],colorhlup[3]);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorhhlow1,colorhhlow2,colorhhup[0],colorhhup[1],colorhhup[2],colorhhup[3]);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorsllow1,colorsllow2,colorslup[0],colorslup[1],colorslup[2],colorslup[3]);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorshlow1,colorshlow2,colorshup[0],colorshup[1],colorshup[2],colorshup[3]);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvllow1,colorvllow2,colorvlup[0],colorvlup[1],colorvlup[2],colorvlup[3]);
+	printf("%d\t%d\t%d\t%d\t%d\t%d\n",colorvhlow1,colorvhlow2,colorvhup[0],colorvhup[1],colorvhup[2],colorvhup[3]);
 }
