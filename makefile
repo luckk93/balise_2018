@@ -14,11 +14,11 @@ all: $(EXEC)
 .PHONY: clean all
 
 clean:
-	rm -f *.i *.txt *.bmp *.jpg *.s *.o *.d *.map $(EXEC)
+	rm -f *.i *.txt *.bmp *.jpg *.info *.s *.o *.d *.map $(EXEC)
 osclean:
 	rm -f *.i *.s *.o *.d *.map
 photoclean:
-	rm -f *.jpg *.bmp *.txt
+	rm -f *.jpg *.bmp *.txt *.info
 -include $(DEP)
 
 %.o: %.cpp
