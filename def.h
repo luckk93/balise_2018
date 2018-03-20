@@ -29,6 +29,7 @@
   #include <arpa/inet.h>
 
   #include <fstream>
+  #include <vector>
 
   using namespace std;
   
