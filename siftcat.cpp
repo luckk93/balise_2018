@@ -97,8 +97,24 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
           }
       }
 
+      long int pointMinDist=10000000;
+      for( int i = 0; i < (int)good_matches.size(); i++ ){
+        for( int i2 = i+1; i2 < (int)good_matches.size(); i2++ ){
+          int xdist=keypoints_2[good_matches[i].trainIdx].pt.x-keypoints_2[good_matches[i2].trainIdx].pt.x;
+          int ydist=keypoints_2[good_matches[i].trainIdx].pt.y-keypoints_2[good_matches[i2].trainIdx].pt.y;
+          if((abs(xdist)>10)&&(abs(ydist)>10)){
+              long int sqrdist=(xdist*xdist)+(ydist*ydist);
+              //printf("dist: %d  %d %d\n",xdist, ydist, sqrdist);
+              if((pointMinDist>sqrdist)&&(sqrdist!=0)){
+                pointMinDist=sqrdist;
+              }
+          }
+        }
+      }
+      int clusterdist=pointMinDist*3;
+
       vector<cluster> clusterInfo;
-      clusterInfo = clusterVerification(good_matches, keypoints_2, 6, 500);
+      clusterInfo = clusterVerification(good_matches, keypoints_2, 6, clusterdist);
       //printf("Number of cluster %d\n", clusterInfo.size());
       
       if((int)clusterInfo.size()<1){
