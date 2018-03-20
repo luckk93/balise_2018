@@ -57,7 +57,7 @@ void simplePixelAnalysis(){
 	int xstate=0,coloriter=0;
 	vector<int> iterpos;
 	int ballcolor=0;
-	int xtopbeg,xtopend,,ytopbeg,ytopend;
+	int xtopbeg,xtopend,ytopbeg,ytopend;
 	int takencolor[4]={0,0,0,0};
 
 	ballinfonum=0;
