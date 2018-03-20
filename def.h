@@ -95,6 +95,14 @@
      unsigned int boule_id;
      unsigned int boule_data[8];
   };
+
+  struct hsvColor{
+    int h,s,v;
+  };
+
+  struct colorRange{
+    hsvColor low, high;
+  };
   
   struct data {
   unsigned int camera_id;
