@@ -3,7 +3,6 @@
 int ballinfonum;
 int	ballinfo[20][2][2];
 data lastvalue;
-int debuger=1;
 
 void getHSV(int x, int y, hsvColor &pointColor){
     int red=pixelvalue(x,y,0);
