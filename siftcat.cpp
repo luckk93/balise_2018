@@ -311,7 +311,6 @@ bool recalibration(char (&opencvstringsift)[200]){
     Mat siftImg;
     
     if(!siftinit){
-        siftinit=preload_sift();
         //full image center (1296,972) and size (2592,1944)
         //test1 image zoom center (1950,150) and size(300,300) in 7 seconss
          //test2 image zoom center (1950,450) and size(900,900) in 18 seconds
@@ -319,11 +318,11 @@ bool recalibration(char (&opencvstringsift)[200]){
         analysisSize= Point(catsizex,catsizey);
         newReferenceCenter= analysisCenter;
         newReferenceSize=analysisSize.x;
-    }
-    if(!siftinit){
-        sprintf(opencvstringsift,"Error loading Image1\n");
-        return false;
-    }
+	    if(!preload_sift()){
+	        sprintf(opencvstringsift,"Error loading Image1\n");
+	        return false;
+	    }
+	}
     
     while(true){
      
@@ -335,6 +334,13 @@ bool recalibration(char (&opencvstringsift)[200]){
         if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
             //sprintf(opencvstring,"Error loading Sift3\n");
             sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+            imwrite("nocat_image_BGR.jpg",siftImg);
+            std::ofstream ofs;
+        	ofs.open ("nocat.info", std::ofstream::out);
+        	ofs << "center: " << ,analysisCenter.x << " " << analysisCenter.y << endl; 
+        	ofs << "size: " << analysisSize.x << " " << analysisSize.y << endl;
+        	ofs << "referencesize: " << newReferenceSize << endl;
+        	ofs.close();
             //pthread_exit(NULL);
         }
         else{
