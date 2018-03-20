@@ -49,7 +49,7 @@
   #define WIDTH 2592			//image size
   #define HEIGHT 1944
   
-  #define BALLNUMBER 6
+  #define BALLNUMBER 4
   
   #define NTOSECOND   1000000000
   #define DISPLAYRATE 100000000

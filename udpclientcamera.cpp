@@ -74,9 +74,9 @@ void *udpclientThread(void *t){
 		strcat(terminalbuffer,tempbuffer);
 		
 		for (int i = 0; i<BALLNUMBER; i++){
-      			sprintf(tempbuffer,"\n");
+  			sprintf(tempbuffer,"\n");
 			strcat(terminalbuffer, tempbuffer);
-      			strcat(terminalbuffer, ballinfostring[i]);
+  			strcat(terminalbuffer, ballinfostring[i]);
 			bzero(ballinfostring[i],sizeof(ballinfostring[i]));
 		}
    

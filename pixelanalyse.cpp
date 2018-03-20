@@ -183,7 +183,9 @@ void simplePixelAnalysis(){
 
 										//memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
 										ballcolor--;
-										printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
+										ballinfostring
+										sprintf(ballinfostring[ballcolor]"color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
+										//printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
 										DEBUG("l");
 										lastvalue.camera_id=111;
 										if(ballcolor==1)lastvalue.boules[ballcolor].boule_id=463;
