@@ -56,12 +56,10 @@ void simplePixelAnalysis(){
 	//int red=0,green=0,blue=0;
 	int xstate=0,coloriter=0;
 	vector<int> iterpos;
-	int controly=0, ballcolor=0;
-	int xtopbeg,xtopend,topx,ytopbeg,ytopend;
+	int ballcolor=0;
+	int xtopbeg,xtopend,,ytopbeg,ytopend;
 	int takencolor[4]={0,0,0,0};
 
-	int xbeg=0,xend=0;
-	int xbegy,xendy;
 	ballinfonum=0;
 
   	hsvColor pointColor;
@@ -99,7 +97,6 @@ void simplePixelAnalysis(){
 			//get if in low half ball colors intervale
 			if((myInRange(pointColor,rangeLow1)||myInRange(pointColor,rangeLow2))&&(x<=WIDTH-1)){
 				if(xstate==0){			//get object start position
-					xbeg=x;
 					xstate=1;
 					}
 				if(myInRange(pointColor, rangeLow1)){			//count number of iteration
@@ -117,7 +114,6 @@ void simplePixelAnalysis(){
 			}
 			else if (xstate==1){			//get object end position & began ball analysis
 				xstate=0;
-				xend=x-1;
 				coloriter=0;
 				ytopbeg=y;
 				ytopend=y;
@@ -126,7 +122,7 @@ void simplePixelAnalysis(){
                     int upColor=0;
                     vector<int> yPosIter;
                     vector<int> iterdist;
-                    for(int i=0; i<iterpos.size()-1; i++){
+                    for(int i=0; i<(int)iterpos.size()-1; i++){
                     	iterdist.push_back(iterpos[i+1]-iterpos[i]);
                     }
                     iterdist.push_back(iterpos[iterpos.size()-1]-iterpos[iterpos.size()-2]);
@@ -139,14 +135,14 @@ void simplePixelAnalysis(){
                     	int seqUpColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum], rangeLow1, rangeLow2, colorsUp);
                     	yPosIter.push_back(itery);
                     	iternum++;
-                    	if(iterpos.size()>=iternum){
+                    	if((int)iterpos.size()>=iternum){
 	                    	do{
 	                    		itery=y;
 	                    		upColor=checkTillUp(iterpos[iternum], itery, 6, rangeLow1, rangeLow2, colorsUp);
 	                    		//upColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum]/2, rangeLow1, rangeLow2, colorsUp);
 	                    		yPosIter.push_back(itery);
 	                    		iternum++;
-	                    	}while((seqUpColor==upColor)&&((iterpos.size()-1)>=iternum));
+	                    	}while((seqUpColor==upColor)&&(((int)iterpos.size()-1)>=iternum));
 	                    	if(iternum>=4){
 /************************************************************************************/
 								if(seqUpColor!=0){
