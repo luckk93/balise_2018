@@ -20,6 +20,8 @@ Mat descriptors_1;
 
 void awbcolorchange(int bluediff, int reddiff);
 
+/******************************************************************************************************************************************************/
+
 bool preload_sift(){
     img_1 = imread( "octocat.png");
     if( !img_1.data ){
@@ -31,6 +33,8 @@ bool preload_sift(){
     f2d->compute( img_1, keypoints_1, descriptors_1 );
     return true;
 }
+
+/***************************************************************************************************************************************************/
 
 bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &calibrcolor, Point &referenceCenter, int &diameter, int show_save){
 
@@ -189,6 +193,8 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
       return true;
   }
 
+  /********************************************************************************************************************************************************************/
+
 
   vector<cluster> clusterVerification(vector< DMatch > &matches, vector<KeyPoint> keypoints, unsigned int minDensity, float maxDistSqr){
       int clusterN=0;
@@ -272,6 +278,8 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
 
 }
 
+/*******************************************************************************************************************************/
+
 vector<int> inRangePoints(vector< DMatch > matches, vector<KeyPoint> keypoints,float maxDistSqr, int pointIndex){
     vector<int> nearPoints;
     nearPoints.clear();
@@ -290,6 +298,7 @@ vector<int> inRangePoints(vector< DMatch > matches, vector<KeyPoint> keypoints,f
     return nearPoints;
 }
 
+/*******************************************************************************************************************************/
 
 bool recalibration(char (&opencvstringsift)[200]){
     static bool siftinit = false;
@@ -312,38 +321,35 @@ bool recalibration(char (&opencvstringsift)[200]){
         newReferenceSize=analysisSize.x;
     }
     if(!siftinit){
-        sprintf(opencvstringsift,"Error loading Sift1\n");
+        sprintf(opencvstringsift,"Error loading Image1\n");
         return false;
     }
-    
-    if(!getImageOpenCV(siftImg)){
-        sprintf(opencvstringsift,"Error loading Image2\n");
-        return false;
-    }
-    if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
-        sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );;
-    }
-    else{
-        sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2], redbalance.set.value, bluebalance.set.value);
-    }
-    
-    int bluediff=(calibrColor[1]-calibrColor[0]);
-    int reddiff=(calibrColor[1]-calibrColor[2]);
-    if((abs(bluediff)>4)||(abs(reddiff)>4)){
-        awbcolorchange(bluediff, reddiff);
-    }
-    else{
-        return true;
-    }
-    sleep(1);
     
     while(true){
      
         if(!getImageOpenCV(siftImg)){
-            sprintf(opencvstringsift,"Error loading Image3\n");
+            sprintf(opencvstringsift,"Error loading Image2\n");
             return false;
         }
+    
+        if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
+            //sprintf(opencvstring,"Error loading Sift3\n");
+            sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+            //pthread_exit(NULL);
+        }
+        else{
+            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2],redbalance.set.value, bluebalance.set.value);
+        }
         
+        bluediff=(calibrColor[1]-calibrColor[0]);
+        reddiff=(calibrColor[1]-calibrColor[2]);
+        if((abs(bluediff)>4)||(abs(reddiff)>4)){
+            awbcolorchange(bluediff, reddiff);
+        }
+        else{
+            return true;
+        }
+
         if(!(newReferenceCenter.x==0 || newReferenceCenter.y==0)){
           analysisCenter= newReferenceCenter;
         }
@@ -354,7 +360,6 @@ bool recalibration(char (&opencvstringsift)[200]){
         if(newReferenceSize>WIDTH){
           newReferenceSize=WIDTH;
         }
-
     
         int xsize=newReferenceSize, ysize=newReferenceSize;
         if(analysisCenter.x<xsize){
@@ -374,29 +379,13 @@ bool recalibration(char (&opencvstringsift)[200]){
         ysize=ysize<<1;
         analysisSize= Point(xsize,ysize);
         show_save_mode =0;
-    
-        if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
-            //sprintf(opencvstring,"Error loading Sift3\n");
-            sprintf(opencvstringsift,"Error Sift3 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
-            //pthread_exit(NULL);
-        }
-        else{
-            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2],redbalance.set.value, bluebalance.set.value);
-        }
-        
-        bluediff=(calibrColor[1]-calibrColor[0]);
-        reddiff=(calibrColor[1]-calibrColor[2]);
-        if((abs(bluediff)>4)||(abs(reddiff)>4)){
-            awbcolorchange(bluediff, reddiff);
-        }
-        else{
-            return true;
-        }
+
         sleep(1);
     }
     return true;
 }
 
+/*******************************************************************************************************************************/
 
 void awbcolorchange(int bluediff, int reddiff){
         pthread_mutex_lock(&mutex_imagecopy);
