@@ -94,7 +94,6 @@ void simplePixelAnalysis(){
 
 	DEBUG(" d ");
 	for(y=YFROM;y<YTO;y=y+YSTEP){		//search ball in selected zone
-        printf("y: %d\t",y);
 		for(x=0;x<WIDTH;x++){			//search all image width
             getHSV(x,y,pointColor);
 			//get if in low half ball colors intervale
@@ -124,7 +123,6 @@ void simplePixelAnalysis(){
 				ytopend=y;
 				if(iterpos.size()>=4){	//if enough number of iteration continue the analysis
 					DEBUG(" e ");
-                    printf("%d %d ",xbeg,xend);
                     int upColor=0;
                     vector<int> yPosIter;
                     vector<int> iterdist;
@@ -137,11 +135,9 @@ void simplePixelAnalysis(){
                     	int iternum=0;
                     	int itery=y;
                     	upColor=0;
-                    	printf("%d",iterdist[iternum]);
                     	//int seqUpColor=checkTillUp(iterpos[iternum], itery, 6, rangeLow1, rangeLow2, colorsUp);
                     	int seqUpColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum], rangeLow1, rangeLow2, colorsUp);
                     	yPosIter.push_back(itery);
-                    	//printf("do%d %d %d %d ",iterpos.size(),seqUpColor, iterpos[iternum],itery);
                     	iternum++;
                     	if(iterpos.size()>=iternum){
 	                    	do{
@@ -149,7 +145,6 @@ void simplePixelAnalysis(){
 	                    		upColor=checkTillUp(iterpos[iternum], itery, 6, rangeLow1, rangeLow2, colorsUp);
 	                    		//upColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum]/2, rangeLow1, rangeLow2, colorsUp);
 	                    		yPosIter.push_back(itery);
-	                    		//printf("a%d %d %d ",upColor,iterpos[iternum],itery);
 	                    		iternum++;
 	                    	}while((seqUpColor==upColor)&&((iterpos.size()-1)>=iternum));
 	                    	if(iternum>=4){
@@ -164,7 +159,6 @@ void simplePixelAnalysis(){
 			                            int iterbegx=iterpos[0], iterendx=iterpos[iterendindex];
 			                            ytopbeg=yPosIter[0];
 			                            ytopend=yPosIter[iterendindex];
-			                            printf("take:%d %d %d ",i, ytopbeg, ytopend);
 			                            if(ytopbeg<ytopend){
 			                                ytopmax=ytopbeg;
 			                            }
