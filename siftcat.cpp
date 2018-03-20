@@ -101,7 +101,7 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
       clusterInfo = clusterVerification(good_matches, keypoints_2, 6, 500);
       //printf("Number of cluster %d\n", clusterInfo.size());
       
-      if(clusterInfo.size()!=1){
+      if((int)clusterInfo.size()<1){
         return false;  
       }
 
