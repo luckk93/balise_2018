@@ -337,7 +337,7 @@ bool recalibration(char (&opencvstringsift)[200]){
             imwrite("nocat_image_BGR.jpg",siftImg);
             std::ofstream ofs;
         	ofs.open ("nocat.info", std::ofstream::out);
-        	ofs << "center: " << ,analysisCenter.x << " " << analysisCenter.y << endl; 
+        	ofs << "center: " << analysisCenter.x << " " << analysisCenter.y << endl; 
         	ofs << "size: " << analysisSize.x << " " << analysisSize.y << endl;
         	ofs << "referencesize: " << newReferenceSize << endl;
         	ofs.close();
