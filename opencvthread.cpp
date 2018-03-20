@@ -21,7 +21,7 @@ void *openCVThread(void *t){
   getImageOpenCV(imagePattern);
   
   int pattern[3];
-  /*char temp[10];
+  char temp[10];
   if(patternSearch(imagePattern, pattern)){
     sprintf(opencvstringpattern,"The pattern is ");
     for(int i=0; i<3;i++){
@@ -42,7 +42,7 @@ void *openCVThread(void *t){
     sprintf(opencvstringpattern,"No pattern detected");
   }
   // pthread_exit(NULL);
-  */
+  
   while(!quitProgram){
     sleep(10);
     recalibration(opencvstringsift);

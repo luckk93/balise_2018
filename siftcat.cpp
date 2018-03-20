@@ -49,7 +49,7 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
 
     img_2_resize = img_2(roi);
 
-    //imwrite( "new_image_sift.jpg", img_2_resize );
+    imwrite( "new_image_sift.jpg", img_2_resize );
     
     
 
@@ -321,7 +321,7 @@ bool recalibration(char (&opencvstringsift)[200]){
         return false;
     }
     if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
-        sprintf(opencvstringsift,"Error loading Sift2\n");
+        sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );;
     }
     else{
         sprintf(opencvstringsift,"1Founded cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f   awb: %d    %d\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2], redbalance.set.value, bluebalance.set.value);
