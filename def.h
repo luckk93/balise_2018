@@ -126,7 +126,7 @@
   extern int catposx, catposy, catsizex, catsizey;
 
   //udpclientcamera.cpp
-  extern char ballinfostring[6][60];
+  extern char ballinfostring[4][60];
   extern bool newdata;
   
   //opencvthread.cpp
