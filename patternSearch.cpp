@@ -261,7 +261,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         inRange(PathZoneBlackMask, Scalar(0,100,50),Scalar(13,256,256), squareSearch[1]);    //orange
         inRange(PathZoneBlackMask, Scalar(40,80,50),Scalar(89,256,256), squareSearch[2]);   //green
         inRange(PathZoneBlackMask, Scalar(15,120,100),Scalar(35,256,256), squareSearch[3]);   //yellow
-        inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,100,50), squareSearch[4]);       //black
+        inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,60,100), squareSearch[4]);       //black
 
         
         imwrite( "patternblue.jpg", squareSearch[0] );
