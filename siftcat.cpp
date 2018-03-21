@@ -360,7 +360,7 @@ bool recalibration(char (&opencvstringsift)[200]){
             //pthread_exit(NULL);
         }
         else{
-            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2],redbalance.set.value, bluebalance.set.value);
+            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
         }
         
         int bluediff=(calibrColor[1]-calibrColor[0]);
