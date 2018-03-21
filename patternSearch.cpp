@@ -50,7 +50,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
     /*********************************************************************************/
     //green
-    int lh=40,hh=180,ls=50,hs=256,lv=100,hv=256;
+    int lh=40,hh=180,ls=70,hs=256,lv=100,hv=256;
 
     inRange(imageHsv,Scalar(lh,ls,lv),Scalar(hh,hs,hv),imageTh);
     findContours( imageTh, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
@@ -258,7 +258,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         cvtColor( PathZoneBlackMask, PathZoneBlackMask, CV_BGR2HSV );
         Mat squareSearch[5];
         inRange(PathZoneBlackMask, Scalar(90,60,50),Scalar(125,256,256), squareSearch[0]); //blue
-        inRange(PathZoneBlackMask, Scalar(0,120,50),Scalar(10,256,256), squareSearch[1]);    //orange
+        inRange(PathZoneBlackMask, Scalar(0,100,50),Scalar(10,256,256), squareSearch[1]);    //orange
         inRange(PathZoneBlackMask, Scalar(40,80,50),Scalar(89,256,256), squareSearch[2]);   //green
         inRange(PathZoneBlackMask, Scalar(15,120,100),Scalar(35,256,256), squareSearch[3]);   //yellow
         inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,256,70), squareSearch[4]);       //black
