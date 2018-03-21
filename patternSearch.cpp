@@ -50,7 +50,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
     /*********************************************************************************/
     //green
-    int lh=40,hh=100,ls=70,hs=256,lv=50,hv=256;
+    int lh=40,hh=100,ls=100,hs=256,lv=50,hv=256;
 
     inRange(imageHsv,Scalar(lh,ls,lv),Scalar(hh,hs,hv),imageTh);
     findContours( imageTh, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
