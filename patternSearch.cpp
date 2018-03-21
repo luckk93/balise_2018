@@ -35,6 +35,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
     //image = cv::imread("path8.png");// read the file
     Mat imageHsv,imageTh;
     Mat contourImg = image.clone();
+    imwrite( "pattern_img.jpg", contourImg );
     cvtColor(analyseImg , imageHsv, COLOR_BGR2HSV);
 
     vector<vector<Point> > contours;
