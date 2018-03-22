@@ -8,6 +8,7 @@ void *udpclientThread(void *t){
 	int tic=0;						//variable to conmfirm de correct fonctionment of the programe
 	char tempbuffer[100];
 	char terminalbuffer[2000];
+	char udpstatestring[100];
 	bzero(ballinfostring,sizeof(ballinfostring));
 	timespec messagetime, nextdisplay;
 	int udpsize = sizeof(struct data);
@@ -19,6 +20,7 @@ void *udpclientThread(void *t){
 
 	if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1){
 		fprintf(stderr,"Socket init failed.\n");
+		sprintf(tempbuffer,"Socket init failed");
 	}
 
 	memset((char *) &si_other, 0, sizeof(si_other));
@@ -27,6 +29,7 @@ void *udpclientThread(void *t){
      
 	if (inet_aton(SERVER , &si_other.sin_addr) == 0){
 		fprintf(stderr, "inet_aton() failed\n");
+		sprintf(tempbuffer,"inet_aton() failed");
 	 }
  
 	while(!quitProgram){
@@ -35,6 +38,10 @@ void *udpclientThread(void *t){
 			pthread_mutex_lock(&mutex_udpout);
 			if (sendto(s, &lastvalue,  udpsize , 0 , (struct sockaddr *) &si_other, slen)==-1){
 				fprintf(stderr,"Sending failed.\n");
+				sprintf(tempbuffer,"Sending failed");
+			}
+			else{
+				sprintf(tempbuffer,"Sending correcly")
 			}
 			newdata=false;
 			pthread_mutex_unlock(&mutex_udpout);
@@ -69,6 +76,10 @@ void *udpclientThread(void *t){
 		}
 		tic=!tic;
 		strcat(terminalbuffer,tempbuffer);
+
+		sprintf(tempbuffer,"\033[13;1H");
+		strcat(terminalbuffer,tempbuffer);
+		strcat(terminalbuffer,udpstatestring);
 		
 		sprintf(tempbuffer,"\033[14;1H");
 		strcat(terminalbuffer,tempbuffer);
