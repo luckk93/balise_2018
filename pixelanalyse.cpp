@@ -217,7 +217,7 @@ void simplePixelAnalysis(){
 		}
 		DEBUG("\n");
 	}
-	if()ballinfonum!=0){
+	if(ballinfonum!=0){
 		newdata=true;
 	}
 }
