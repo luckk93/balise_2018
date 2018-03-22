@@ -179,7 +179,7 @@ void simplePixelAnalysis(){
 
 										//memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
 										ballcolor--;
-										sprintf(ballinfostring[ballcolor],"color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
+										sprintf(ballinfostring[ballcolor],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										//printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
 										DEBUG("l");
 										lastvalue.camera_id=ipvalue;
