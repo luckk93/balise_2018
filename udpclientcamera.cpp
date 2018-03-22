@@ -18,9 +18,11 @@ void *udpclientThread(void *t){
 	
 	newdata=false;
 
+	sprintf(udpstatestring,"Initialising UDP");
+
 	if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1){
 		fprintf(stderr,"Socket init failed.\n");
-		sprintf(tempbuffer,"Socket init failed");
+		sprintf(udpstatestring,"Socket init failed");
 	}
 
 	memset((char *) &si_other, 0, sizeof(si_other));
@@ -29,19 +31,20 @@ void *udpclientThread(void *t){
      
 	if (inet_aton(SERVER , &si_other.sin_addr) == 0){
 		fprintf(stderr, "inet_aton() failed\n");
-		sprintf(tempbuffer,"inet_aton() failed");
-	 }
- 
+		sprintf(udpstatestring,"inet_aton() failed");
+	}
+
+	 
 	while(!quitProgram){
 		
 		if(newdata){
 			pthread_mutex_lock(&mutex_udpout);
 			if (sendto(s, &lastvalue,  udpsize , 0 , (struct sockaddr *) &si_other, slen)==-1){
 				fprintf(stderr,"Sending failed.\n");
-				sprintf(tempbuffer,"Sending failed");
+				sprintf(udpstatestring,"Sending failed");
 			}
 			else{
-				sprintf(tempbuffer,"Sending correcly");
+				sprintf(udpstatestring,"Sending correcly");
 			}
 			newdata=false;
 			pthread_mutex_unlock(&mutex_udpout);
