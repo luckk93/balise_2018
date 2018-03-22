@@ -1,6 +1,6 @@
 #include "def.h"
 
-char ballinfostring[6][60];
+char ballinfostring[4][60];
 
 bool newdata;
 
@@ -41,7 +41,7 @@ void *udpclientThread(void *t){
 				sprintf(tempbuffer,"Sending failed");
 			}
 			else{
-				sprintf(tempbuffer,"Sending correcly")
+				sprintf(tempbuffer,"Sending correcly");
 			}
 			newdata=false;
 			pthread_mutex_unlock(&mutex_udpout);
