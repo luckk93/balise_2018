@@ -35,6 +35,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
     //image = cv::imread("path8.png");// read the file
     Mat imageHsv,imageTh;
     Mat contourImg = image.clone();
+    imwrite( "pattern_img.jpg", contourImg );
     cvtColor(analyseImg , imageHsv, COLOR_BGR2HSV);
 
     vector<vector<Point> > contours;
@@ -50,7 +51,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
 
     /*********************************************************************************/
     //green
-    int lh=40,hh=180,ls=70,hs=256,lv=100,hv=256;
+    int lh=40,hh=100,ls=100,hs=256,lv=50,hv=256;
 
     inRange(imageHsv,Scalar(lh,ls,lv),Scalar(hh,hs,hv),imageTh);
     findContours( imageTh, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
@@ -261,7 +262,7 @@ bool patternSearch(Mat analyseImg, int (&pattern)[3])
         inRange(PathZoneBlackMask, Scalar(0,100,50),Scalar(13,256,256), squareSearch[1]);    //orange
         inRange(PathZoneBlackMask, Scalar(40,80,50),Scalar(89,256,256), squareSearch[2]);   //green
         inRange(PathZoneBlackMask, Scalar(15,120,100),Scalar(35,256,256), squareSearch[3]);   //yellow
-        inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,256,70), squareSearch[4]);       //black
+        inRange(PathZoneWhiteMask, Scalar(0,0,0),Scalar(190,100,100), squareSearch[4]);       //black
 
         
         imwrite( "patternblue.jpg", squareSearch[0] );

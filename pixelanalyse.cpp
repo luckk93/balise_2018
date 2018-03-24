@@ -12,10 +12,16 @@ void getHSV(int x, int y, hsvColor &pointColor){
 }
 
 bool myInRange(hsvColor toCheck, colorRange limits){
-	if(toCheck.h<=limits.low.h)
-		return false;
-	if(toCheck.h>=limits.high.h)
-		return false;
+	if(limits.low.h<limits.high.h){
+		if(toCheck.h<=limits.low.h)
+			return false;
+		if(toCheck.h>=limits.high.h)
+			return false;
+	}
+	else{
+		if(!((toCheck.h>=limits.low.h)||(toCheck.h<=limits.high.h)))
+			return false;
+	}
 	if(toCheck.s<=limits.low.s)
 		return false;
 	if(toCheck.s>=limits.high.s)
@@ -123,23 +129,27 @@ void simplePixelAnalysis(){
                     vector<int> yPosIter;
                     vector<int> iterdist;
                     for(int i=0; i<(int)iterpos.size()-1; i++){
-                    	iterdist.push_back(iterpos[i+1]-iterpos[i]);
+                    	iterdist.push_back((iterpos[i+1]-iterpos[i])>>1);
+                    	if(iterdist[i]==0){
+                            iterdist[i]=2;
+                    	}
                     }
                     iterdist.push_back(iterpos[iterpos.size()-1]-iterpos[iterpos.size()-2]);
+                    if(iterdist[iterpos.size()-1]==0){
+                        iterdist[iterpos.size()-1]=2;
+                    }
 
                     while(!iterpos.empty()){
                     	int iternum=0;
                     	int itery=y;
                     	upColor=0;
-                    	//int seqUpColor=checkTillUp(iterpos[iternum], itery, 6, rangeLow1, rangeLow2, colorsUp);
                     	int seqUpColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum], rangeLow1, rangeLow2, colorsUp);
                     	yPosIter.push_back(itery);
                     	iternum++;
                     	if((int)iterpos.size()>=iternum){
 	                    	do{
 	                    		itery=y;
-	                    		upColor=checkTillUp(iterpos[iternum], itery, 6, rangeLow1, rangeLow2, colorsUp);
-	                    		//upColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum]/2, rangeLow1, rangeLow2, colorsUp);
+	                    		upColor=checkTillUp(iterpos[iternum], itery, iterdist[iternum], rangeLow1, rangeLow2, colorsUp);
 	                    		yPosIter.push_back(itery);
 	                    		iternum++;
 	                    	}while((seqUpColor==upColor)&&(((int)iterpos.size()-1)>=iternum));
@@ -179,10 +189,10 @@ void simplePixelAnalysis(){
 
 										//memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
 										ballcolor--;
-										sprintf(ballinfostring[ballcolor],"color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
+										sprintf(ballinfostring[ballcolor],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										//printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
 										DEBUG("l");
-										lastvalue.camera_id=111;
+										lastvalue.camera_id=ipvalue;
 										if(ballcolor==1)lastvalue.boules[ballcolor].boule_id=463;
 										if(ballcolor==3)lastvalue.boules[ballcolor].boule_id=464;
 										lastvalue.boules[ballcolor].boule_data[0]=ytopbeg;
@@ -216,5 +226,8 @@ void simplePixelAnalysis(){
 			}
 		}
 		DEBUG("\n");
+	}
+	if(ballinfonum!=0){
+		newdata=true;
 	}
 }
