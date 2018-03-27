@@ -193,9 +193,11 @@ void simplePixelAnalysis(){
 										//printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
 										DEBUG("l");
 										lastvalue.camera_id=ipvalue;
-										if(ballcolor==1)lastvalue.boules[ballcolor].boule_id=463;
-										if(ballcolor==3)lastvalue.boules[ballcolor].boule_id=464;
-										lastvalue.boules[ballcolor].boule_data[0]=ytopbeg;
+										if(ballcolor==0)lastvalue.boules[ballcolor].boule_id=463;
+										if(ballcolor==1)lastvalue.boules[ballcolor].boule_id=464;
+										if(ballcolor==2)lastvalue.boules[ballcolor].boule_id=465;
+                                                                                if(ballcolor==3)lastvalue.boules[ballcolor].boule_id=466;
+                                                                                lastvalue.boules[ballcolor].boule_data[0]=ytopbeg;
 										lastvalue.boules[ballcolor].boule_data[1]=xtopbeg;
 										lastvalue.boules[ballcolor].boule_data[2]=ytopend;
 										lastvalue.boules[ballcolor].boule_data[3]=xtopend;
