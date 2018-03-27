@@ -210,13 +210,13 @@ void simplePixelAnalysis(){
                     	int iternum=0;
                     	int itery=y;
                     	upColor=0;
-                    	int seqUpColor=checkTillUp(iterpos[iternum], itery, (iterdist[iternum])>>1, rangeLow1, rangeLow2, colorsUp);
+                    	int seqUpColor=checkTillUp(iterpos[iternum], itery, (iterdist[iternum])>>1, rangeLow, colorsUp);
                     	yPosIter.push_back(itery);
                     	iternum++;
                     	if((int)iterpos.size()>=iternum){
 	                    	do{
 	                    		itery=y;
-	                    		upColor=checkTillUp(iterpos[iternum], itery, (iterdist[iternum])>>1, rangeLow1, rangeLow2, colorsUp);
+	                    		upColor=checkTillUp(iterpos[iternum], itery, (iterdist[iternum])>>1, rangeLow, colorsUp);
 	                    		yPosIter.push_back(itery);
 	                    		iternum++;
 	                    	}while((seqUpColor==upColor)&&(((int)iterpos.size()-1)>=iternum));
