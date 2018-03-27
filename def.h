@@ -42,9 +42,10 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define YFROM 600			//image high to start enemy search 
-  #define YTO 1300				//image high to end enemy search 
-  #define YSTEP 4				////image high steps for enemy search 
+  #define Y_FROM 650      //image height to start beacon search
+  #define Y_TO 1300       //image height to end beacon search
+  #define Y_STEP_MIN 4        //minimal steps for beacon search
+  #define Y_STEP_MAX 40     //maximal steps for beacon search
   
   #define WIDTH 2592			//image size
   #define HEIGHT 1944
