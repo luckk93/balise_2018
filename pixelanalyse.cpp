@@ -254,16 +254,9 @@ void simplePixelAnalysis(){
 			                            }
 			                            xtopend=iterendx-1;
 
-										//memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
-										ballcolor--;
-										sprintf(ballinfostring[ballcolor],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
-										//printf(" %i  color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ballinfonum,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,iterpos.size());
-										DEBUG("l");
+										memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
 										lastvalue.camera_id=ipvalue;
-										if(ballcolor==0)lastvalue.boules[ballcolor].boule_id=1;
-										if(ballcolor==1)lastvalue.boules[ballcolor].boule_id=2;
-										if(ballcolor==2)lastvalue.boules[ballcolor].boule_id=3;
-										if(ballcolor==3)lastvalue.boules[ballcolor].boule_id=4;
+										lastvalue.boules[ballcolor].boule_id=ballcolor;
 										lastvalue.boules[ballcolor].boule_data[0]=ytopbeg;
 										lastvalue.boules[ballcolor].boule_data[1]=xtopbeg;
 										lastvalue.boules[ballcolor].boule_data[2]=ytopend;
@@ -272,6 +265,7 @@ void simplePixelAnalysis(){
 										lastvalue.boules[ballcolor].boule_data[5]=1;
 										lastvalue.boules[ballcolor].boule_data[6]=1;
 										lastvalue.boules[ballcolor].boule_data[7]=1;
+										sprintf(ballinfostring[ballcolor],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
 									}
