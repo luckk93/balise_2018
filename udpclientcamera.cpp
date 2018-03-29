@@ -47,6 +47,7 @@ void *udpclientThread(void *t){
 				sprintf(udpstatestring,"Sending correcly");
 			}
 			newdata=false;
+			memset(&lastvalue, 0, sizeof(lastvalue));
 			pthread_mutex_unlock(&mutex_udpout);
 		}
 		

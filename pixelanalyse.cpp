@@ -266,7 +266,7 @@ void simplePixelAnalysis(){
 										lastvalue.boules[ball_index].boule_data[5]=1;
 										lastvalue.boules[ball_index].boule_data[6]=1;
 										lastvalue.boules[ball_index].boule_data[7]=1;
-										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
+										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
 									}
