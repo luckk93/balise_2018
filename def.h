@@ -4,8 +4,6 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include <assert.h>
-  #include <getopt.h>             /* getopt_long() */
   #include <fcntl.h>              /* low-level i/o */
   #include <unistd.h>
   #include <errno.h>
@@ -23,9 +21,6 @@
   #include <netinet/in.h>
   #include <netdb.h>
   
-  #include <signal.h>
-  #include <pthread.h>
-  
   #include <arpa/inet.h>
 
   #include <fstream>
@@ -42,7 +37,7 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define Y_FROM 650      //image height to start beacon search
+  #define Y_FROM 500      //image height to start beacon search
   #define Y_TO 1300       //image height to end beacon search
   #define Y_STEP_MIN 4        //minimal steps for beacon search
   #define Y_STEP_MAX 40     //maximal steps for beacon search
