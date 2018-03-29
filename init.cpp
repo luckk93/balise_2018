@@ -1,5 +1,7 @@
 #include "def.h"
 #include <string.h>
+#include <getopt.h>             /* getopt_long() */
+
 
 
 int wifi=0;					//wifi flag activation
