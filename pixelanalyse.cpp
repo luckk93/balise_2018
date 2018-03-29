@@ -253,19 +253,20 @@ void simplePixelAnalysis(){
 			                                getHSV(iterendx,ytopmax,pointColor);
 			                            }
 			                            xtopend=iterendx-1;
+			                            int ball_index=ballcolor-1;;
 
-										memset(ballinfostring[ballcolor],0,sizeof(ballinfostring[ballcolor]));
+										memset(ballinfostring[ball_index],0,sizeof(ballinfostring[ball_index]));
 										lastvalue.camera_id=ipvalue;
-										lastvalue.boules[ballcolor].boule_id=ballcolor;
-										lastvalue.boules[ballcolor].boule_data[0]=ytopbeg;
-										lastvalue.boules[ballcolor].boule_data[1]=xtopbeg;
-										lastvalue.boules[ballcolor].boule_data[2]=ytopend;
-										lastvalue.boules[ballcolor].boule_data[3]=xtopend;
-										lastvalue.boules[ballcolor].boule_data[4]=1;
-										lastvalue.boules[ballcolor].boule_data[5]=1;
-										lastvalue.boules[ballcolor].boule_data[6]=1;
-										lastvalue.boules[ballcolor].boule_data[7]=1;
-										sprintf(ballinfostring[ballcolor],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
+										lastvalue.boules[ball_index].boule_id=ballcolor;
+										lastvalue.boules[ball_index].boule_data[0]=ytopbeg;
+										lastvalue.boules[ball_index].boule_data[1]=xtopbeg;
+										lastvalue.boules[ball_index].boule_data[2]=ytopend;
+										lastvalue.boules[ball_index].boule_data[3]=xtopend;
+										lastvalue.boules[ball_index].boule_data[4]=1;
+										lastvalue.boules[ball_index].boule_data[5]=1;
+										lastvalue.boules[ball_index].boule_data[6]=1;
+										lastvalue.boules[ball_index].boule_data[7]=1;
+										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d\n",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
 									}

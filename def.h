@@ -4,8 +4,6 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include <assert.h>
-  #include <getopt.h>             /* getopt_long() */
   #include <fcntl.h>              /* low-level i/o */
   #include <unistd.h>
   #include <errno.h>
@@ -22,9 +20,6 @@
   #include <sys/socket.h>
   #include <netinet/in.h>
   #include <netdb.h>
-  
-  #include <signal.h>
-  #include <pthread.h>
   
   #include <arpa/inet.h>
 

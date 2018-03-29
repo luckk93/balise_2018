@@ -1,13 +1,15 @@
 #include "def.h"
+#include <string.h>
 
 
 int wifi=0;					//wifi flag activation
 int takephoto=0;		//takephoto flag disactivation
 int debuger=0;			//debug flag disactiovation
 int absent=0;			//absence flac disactivation
+int color_to_check=0;
 
 //used by getopt_long to know the possible inputs
-static const char short_options [] = "d:t:a:w:h";
+static const char short_options [] = "dta:wh";
 
 //also needed to parse command line arguments with getopt_long
 static const struct option
@@ -70,6 +72,7 @@ void initChosed(int argc, char *argv[]){
 				
 			case 'a':
 				absent=1;			//set absence flag active
+				color_to_check=optarg[0]-48;
 				break;
 				
 			case 'h':

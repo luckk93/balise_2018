@@ -1,4 +1,5 @@
 #include "def.h"
+#include <assert.h>
 
 int actfps=0;
 
