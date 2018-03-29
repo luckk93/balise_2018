@@ -1,4 +1,6 @@
 #include "def.h"
+#include <signal.h>
+#include <pthread.h>
 
 #include <fstream>
 
