@@ -1,15 +1,9 @@
 <<<<<<< HEAD
-center: 2292 800
+center: 1670 437
+size: 784 784
+referencesize: 392
+=======
+center: 800 600
 size: 600 600
 referencesize: 600
-=======
-<<<<<<< HEAD
-center: 1600 500
-size: 600 600
-referencesize: 600
-=======
-center: 2491 632
-size: 202 1264
-referencesize: 2592
->>>>>>> ed51c37f8b94f3dee4cf269123487f643a6aa82a
->>>>>>> b3a0ff785b323c3200de2adf6587b8313587d563
+>>>>>>> 07780b2d50173692539528ac71dc8ca3fe5b4d79
