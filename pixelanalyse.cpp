@@ -3,6 +3,7 @@
 int ballinfonum;
 int	ballinfo[20][2][2];
 data lastvalue;
+bool gottenBall[BALLNUMBER]{false};
 
 void getHSV(int x, int y, hsvColor &pointColor){
     int red=pixelvalue(x,y,0);
@@ -269,6 +270,7 @@ void simplePixelAnalysis(){
 										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
+										gottenBall[ball_index]=true;
 									}
 									ballcolor=0;
 								}

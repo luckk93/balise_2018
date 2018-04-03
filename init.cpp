@@ -74,7 +74,7 @@ void initChosed(int argc, char *argv[]){
 				
 			case 'a':
 				absent=1;			//set absence flag active
-				color_to_check=optarg[0]-48;
+				color_to_check=optarg[0]-49;
 				break;
 				
 			case 'h':

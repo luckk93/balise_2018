@@ -33,7 +33,7 @@
   #define pixelvalue(x,y,c) (bufptr[c+((x)*3)+((y)*WIDTH*3)])			//macro to get pixel color c in position x & y of image
   #define MAX_INPUT   16
   #define MAX_NORM    16
-  #define STARTIMAGE 10		//number of image to warm-up the camera  
+  #define STARTIMAGE 1000		//number of image to warm-up the camera  
   
   #define MESSAGESIZE 55		//size of message to send to server
   
@@ -64,11 +64,12 @@
   	size_t                  length;
   };
   
-  //main.cpp
-  extern int wifi;					//wifi flag activation
-  extern int takephoto;		//takephoto flag disactivation
-  extern int debuger;			//debug flag disactiovation
-  extern int absent;			//absence flac disactivation
+  //init.cpp
+  extern int wifi;				    //wifi flag activation
+  extern int takephoto;       //takephoto flag disactivation
+  extern int debuger;			    //debug flag disactiovation
+  extern int absent;		      //absence flac disactivation
+  extern int color_to_check;  //absest ball index
   
   extern bool quitProgram;
   
@@ -109,7 +110,8 @@
   
   extern int ballinfonum;
   extern int ballinfo[20][2][2];
-  extern data lastvalue;		
+  extern data lastvalue;	
+  extern bool gottenBall[BALLNUMBER];	
   
   //initwithfiles
   extern int colorhllow1, colorhllow2,colorhlup[4];       //low trigger h color

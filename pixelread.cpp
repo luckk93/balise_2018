@@ -130,13 +130,14 @@ while(!quitProgram){
 		if(absent==1)
 		{	
 			photocnt++;
-			if((ballinfonum==0)&&(photocnt>=STARTIMAGE)){
+			if((!gottenBall[color_to_check])&&(photocnt>=STARTIMAGE)){
 					saveimage(bufptr,1);
 					stop_capturing (&fd);
 					uninit_device (&n_buffers, buffers);
 					close_device (&fd);
 					exit (EXIT_SUCCESS);
 			}
+			gottenBall[color_to_check]=false;
 		}
 		
 		if(takephoto==1){						//if takephoto flac active take a photo after warm-up
