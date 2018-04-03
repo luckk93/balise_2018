@@ -50,7 +50,8 @@ void initChosed(int argc, char *argv[]){
 	//process all the command line arguments
 	for (;;)
 	{
-		c = getopt_long (argc, argv,short_options, long_options,&index);
+		//c = getopt_long (argc, argv,short_options, long_options,&index);
+		c = getopt (argc, argv, short_options)
 
 		if (-1 == c)
 			break;//no more arguments (quit from for)
