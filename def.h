@@ -33,7 +33,7 @@
   #define pixelvalue(x,y,c) (bufptr[c+((x)*3)+((y)*WIDTH*3)])			//macro to get pixel color c in position x & y of image
   #define MAX_INPUT   16
   #define MAX_NORM    16
-  #define STARTIMAGE 1000		//number of image to warm-up the camera  
+  #define STARTIMAGE 100		//number of image to warm-up the camera  
   
   #define MESSAGESIZE 55		//size of message to send to server
   

@@ -6,4 +6,4 @@ v4l2-ctl --set-ctrl white_balance_auto_preset=0,red_balance=1100,blue_balance=21
 v4l2-ctl --set-ctrl auto_exposure=1,exposure_time_absolute=1000,auto_exposure_bias=12,iso_sensitivity=0
 v4l2-ctl --set-ctrl=exposure_dynamic_framerate=1,sharpness=-100,saturation=50
 #sleep 5
-./capview --w
+./capview -w
