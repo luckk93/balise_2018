@@ -37,7 +37,7 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define Y_FROM 550      //image height to start beacon search
+  #define Y_FROM 300      //image height to start beacon search
   #define Y_TO 1500       //image height to end beacon search
   #define Y_STEP_MIN 2        //minimal steps for beacon search
   #define Y_STEP_MAX 30     //maximal steps for beacon search
