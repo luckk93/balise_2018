@@ -44,7 +44,7 @@ static void usage (FILE *fp, int argc, char **argv)
 	
 void initChosed(int argc, char *argv[]){
 	
-	int                 index;
+	//int                 index;
 	int                 c;
 	
 	//process all the command line arguments

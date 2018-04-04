@@ -37,10 +37,10 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define Y_FROM 500      //image height to start beacon search
-  #define Y_TO 1300       //image height to end beacon search
-  #define Y_STEP_MIN 4        //minimal steps for beacon search
-  #define Y_STEP_MAX 40     //maximal steps for beacon search
+  #define Y_FROM 550      //image height to start beacon search
+  #define Y_TO 1500       //image height to end beacon search
+  #define Y_STEP_MIN 2        //minimal steps for beacon search
+  #define Y_STEP_MAX 30     //maximal steps for beacon search
   
   #define WIDTH 2592			//image size
   #define HEIGHT 1944
@@ -101,11 +101,19 @@
   struct colorRange{
     hsvColor low, high;
   };
+
+  struct cat_info{
+    int x;
+    int y;
+    int red;
+    int blue;
+  } ;
   
   struct data {
   unsigned int camera_id;
-  struct boule boules[6];
+  boule boules[6];
   int pattern[3];
+  cat_info cat_data;
   };
   
   extern int ballinfonum;
@@ -164,6 +172,9 @@
   
   //pixelanalyse
   void simplePixelAnalysis();
+
+  //siftcat.cpp
+  void getCatData();
 
 
 #endif
