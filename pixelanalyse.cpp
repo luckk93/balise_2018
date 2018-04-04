@@ -228,7 +228,7 @@ void simplePixelAnalysis(){
                     vector<int> yPosIter;
                     vector<int> iterdist;
                     for(int i=0; i<(int)iterpos.size()-1; i++){
-                    	iterdist.push_back((iterpos[i+1]-iterpos[i])>>1);
+                    	iterdist.push_back(iterpos[i+1]-iterpos[i]);
                     	if(iterdist[i]<=1){
                             iterdist[i]=2;
                     	}
