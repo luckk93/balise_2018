@@ -3,6 +3,7 @@
 int ballinfonum;
 int	ballinfo[20][2][2];
 data lastvalue;
+bool gottenBall[BALLNUMBER]{false};
 
 void getHSV(int x, int y, hsvColor &pointColor){
     int red=pixelvalue(x,y,0);
@@ -132,6 +133,7 @@ void simplePixelAnalysis(){
 	int ballcolor=0;
 	int xtopbeg,xtopend,ytopbeg,ytopend;
 	int takencolor[4]={0,0,0,0};
+	static bool init_flag=true;
 
 	ballinfonum=0;
 
@@ -142,18 +144,7 @@ void simplePixelAnalysis(){
   	static hsvColor low2high=	{colorhhlow2,colorshlow2,colorvhlow2};
   	static hsvColor lowlow=		{colorhllow1,colorsllow2,colorvllow2};
   	static hsvColor lowhigh=	{colorhhlow2,colorshlow2,colorvhlow2};
-  	if(colorhllow1<colorhllow2){
-  		lowlow.h=colorhllow1;
-  	}
-  	else{
-  		lowlow.h=colorhllow1;
-  	}
-  	if(colorhhlow1<colorhhlow2){
-  		lowhigh.h=colorhhlow2;
-  	}
-  	else{
-  		lowhigh.h=colorhhlow1;
-  	}
+  
   	static hsvColor up0low=	    {colorhlup[0],colorslup[0],colorvlup[0]};
   	static hsvColor up0high=    {colorhhup[0],colorshup[0],colorvhup[0]};
   	static hsvColor up1low=	    {colorhlup[1],colorslup[1],colorvlup[1]};
@@ -163,6 +154,51 @@ void simplePixelAnalysis(){
   	static hsvColor up3low=	    {colorhlup[3],colorslup[3],colorvlup[3]};
   	static hsvColor up3high=    {colorhhup[3],colorshup[3],colorvhup[3]};
 
+  	if(init_flag){
+  		for(int i=0; i<3; i++){
+			lastvalue.pattern[i]=0;
+		}
+		if(colorhllow1<colorhllow2){
+  			lowlow.h=colorhllow1;
+	  	}
+	  	else{
+	  		lowlow.h=colorhllow1;
+	  	}
+	  	if(colorhhlow1<colorhhlow2){
+	  		lowhigh.h=colorhhlow2;
+	  	}
+	  	else{
+	  		lowhigh.h=colorhhlow1;
+	  	}
+
+	  	if(colorsllow1<colorsllow2){
+	  		lowlow.s=colorsllow1;
+	  	}
+	  	else{
+	  		lowlow.s=colorsllow1;
+	  	}
+	  	if(colorshlow1<colorshlow2){
+	  		lowhigh.s=colorshlow2;
+	  	}
+	  	else{
+	  		lowhigh.s=colorshlow1;
+	  	}
+
+	  	if(colorvllow1<colorvllow2){
+	  		lowlow.v=colorvllow1;
+	  	}
+	  	else{
+	  		lowlow.v=colorvllow2;
+	  	}
+	  	if(colorvhlow1<colorvhlow2){
+	  		lowhigh.v=colorvhlow2;
+	  	}
+	  	else{
+	  		lowhigh.v=colorvhlow1;
+	  	}
+  		init_flag=false;
+  	}
+
   	static colorRange rangeLow1={low1low, low1high};
   	static colorRange rangeLow2={low2low, low2high};
   	static colorRange rangeLow={lowlow, lowhigh};
@@ -171,10 +207,6 @@ void simplePixelAnalysis(){
   	static colorRange rangeUp2={up2low, up2high};
   	static colorRange rangeUp3={up3low, up3high};
   	static colorRange colorsUp[4]={rangeUp0, rangeUp1, rangeUp2, rangeUp3};
-
-	for(int i=0; i<3; i++){
-		lastvalue.pattern[i]=0;
-	}
 
 	//extreme point ball search methode
 
@@ -196,7 +228,7 @@ void simplePixelAnalysis(){
                     vector<int> yPosIter;
                     vector<int> iterdist;
                     for(int i=0; i<(int)iterpos.size()-1; i++){
-                    	iterdist.push_back((iterpos[i+1]-iterpos[i])>>1);
+                    	iterdist.push_back(iterpos[i+1]-iterpos[i]);
                     	if(iterdist[i]<=1){
                             iterdist[i]=2;
                     	}
@@ -269,6 +301,7 @@ void simplePixelAnalysis(){
 										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
+										gottenBall[ball_index]=true;
 									}
 									ballcolor=0;
 								}

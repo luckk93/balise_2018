@@ -44,13 +44,14 @@ static void usage (FILE *fp, int argc, char **argv)
 	
 void initChosed(int argc, char *argv[]){
 	
-	int                 index;
+	//int                 index;
 	int                 c;
 	
 	//process all the command line arguments
 	for (;;)
 	{
-		c = getopt_long (argc, argv,short_options, long_options,&index);
+		//c = getopt_long (argc, argv,short_options, long_options,&index);
+		c = getopt (argc, argv, short_options);
 
 		if (-1 == c)
 			break;//no more arguments (quit from for)
@@ -74,7 +75,7 @@ void initChosed(int argc, char *argv[]){
 				
 			case 'a':
 				absent=1;			//set absence flag active
-				color_to_check=optarg[0]-48;
+				color_to_check=optarg[0]-49;
 				break;
 				
 			case 'h':

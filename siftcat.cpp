@@ -427,3 +427,8 @@ void awbcolorchange(int bluediff, int reddiff){
         ofs.close();
 }
 
+
+void getCatData(){
+
+
+}
