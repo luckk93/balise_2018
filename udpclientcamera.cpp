@@ -49,6 +49,9 @@ void *udpclientThread(void *t){
 			newdata=false;
 			memset(&lastvalue, 0, sizeof(lastvalue));
 			pthread_mutex_unlock(&mutex_udpout);
+			if(lastvalue.cat_data.red==0){
+				getCatData();
+			}
 		}
 		
 		usleep(1000);
