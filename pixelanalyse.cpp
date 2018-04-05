@@ -14,22 +14,22 @@ void getHSV(int x, int y, hsvColor &pointColor){
 
 bool myInRange(hsvColor toCheck, colorRange limits){
 	if(limits.low.h<limits.high.h){
-		if(toCheck.h<=limits.low.h)
+		if(toCheck.h<limits.low.h)
 			return false;
-		if(toCheck.h>=limits.high.h)
+		if(toCheck.h>limits.high.h)
 			return false;
 	}
 	else{
-		if(!((toCheck.h>=limits.low.h)||(toCheck.h<=limits.high.h)))
+		if(!((toCheck.h>limits.low.h)||(toCheck.h<limits.high.h)))
 			return false;
 	}
-	if(toCheck.s<=limits.low.s)
+	if(toCheck.s<limits.low.s)
 		return false;
-	if(toCheck.s>=limits.high.s)
+	if(toCheck.s>limits.high.s)
 		return false;
-	if(toCheck.v<=limits.low.v)
+	if(toCheck.v<limits.low.v)
 		return false;
-	if(toCheck.v>=limits.high.v)
+	if(toCheck.v>limits.high.v)
 		return false;
 
 	return true;
