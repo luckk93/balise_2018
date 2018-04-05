@@ -4,8 +4,6 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include <assert.h>
-  #include <getopt.h>             /* getopt_long() */
   #include <fcntl.h>              /* low-level i/o */
   #include <unistd.h>
   #include <errno.h>
@@ -23,9 +21,6 @@
   #include <netinet/in.h>
   #include <netdb.h>
   
-  #include <signal.h>
-  #include <pthread.h>
-  
   #include <arpa/inet.h>
 
   #include <fstream>
@@ -38,13 +33,14 @@
   #define pixelvalue(x,y,c) (bufptr[c+((x)*3)+((y)*WIDTH*3)])			//macro to get pixel color c in position x & y of image
   #define MAX_INPUT   16
   #define MAX_NORM    16
-  #define STARTIMAGE 10		//number of image to warm-up the camera  
+  #define STARTIMAGE 100		//number of image to warm-up the camera  
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define YFROM 600			//image high to start enemy search 
-  #define YTO 1300				//image high to end enemy search 
-  #define YSTEP 4				////image high steps for enemy search 
+  #define Y_FROM 300      //image height to start beacon search
+  #define Y_TO 1500       //image height to end beacon search
+  #define Y_STEP_MIN 2        //minimal steps for beacon search
+  #define Y_STEP_MAX 30     //maximal steps for beacon search
   
   #define WIDTH 2592			//image size
   #define HEIGHT 1944
@@ -68,11 +64,12 @@
   	size_t                  length;
   };
   
-  //main.cpp
-  extern int wifi;					//wifi flag activation
-  extern int takephoto;		//takephoto flag disactivation
-  extern int debuger;			//debug flag disactiovation
-  extern int absent;			//absence flac disactivation
+  //init.cpp
+  extern int wifi;				    //wifi flag activation
+  extern int takephoto;       //takephoto flag disactivation
+  extern int debuger;			    //debug flag disactiovation
+  extern int absent;		      //absence flac disactivation
+  extern int color_to_check;  //absest ball index
   
   extern bool quitProgram;
   
@@ -104,16 +101,25 @@
   struct colorRange{
     hsvColor low, high;
   };
+
+  struct cat_info{
+    int x;
+    int y;
+    int red;
+    int blue;
+  } ;
   
   struct data {
   unsigned int camera_id;
-  struct boule boules[6];
+  boule boules[6];
   int pattern[3];
+  cat_info cat_data;
   };
   
   extern int ballinfonum;
   extern int ballinfo[20][2][2];
-  extern data lastvalue;		
+  extern data lastvalue;	
+  extern bool gottenBall[BALLNUMBER];	
   
   //initwithfiles
   extern int colorhllow1, colorhllow2,colorhlup[4];       //low trigger h color
@@ -166,6 +172,9 @@
   
   //pixelanalyse
   void simplePixelAnalysis();
+
+  //siftcat.cpp
+  void getCatData();
 
 
 #endif

@@ -1,4 +1,5 @@
 #include "def.h"
+#include <assert.h>
 
 int actfps=0;
 
@@ -128,13 +129,18 @@ while(!quitProgram){
 		//if  absence mode active take a photo
 		if(absent==1)
 		{	
-			photocnt++;
-			if((ballinfonum==0)&&(photocnt>=STARTIMAGE)){
+			if(photocnt>=STARTIMAGE){
+				if(!gottenBall[color_to_check]){
 					saveimage(bufptr,1);
 					stop_capturing (&fd);
 					uninit_device (&n_buffers, buffers);
 					close_device (&fd);
 					exit (EXIT_SUCCESS);
+				}
+				gottenBall[color_to_check]=false;
+			}
+			else{
+				photocnt++;
 			}
 		}
 		
