@@ -33,7 +33,7 @@ void *udpclientThread(void *t){
     tv.tv_usec = 100000;
     
     if(setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
-        sprintf(upd_err_msg, "Could not set timeout on socket.");
+        sprintf(udpstatestring, "Could not set timeout on socket.");
     }
 
 	memset((char *) &si_other, 0, sizeof(si_other));
