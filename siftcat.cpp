@@ -361,13 +361,13 @@ bool recalibration(char (&opencvstringsift)[200]){
 	        	ofs.close();
 	        }
 	        else{
-	        	sprintf(opencvstringsift,"Cat not found after several try\n",);
+	        	sprintf(opencvstringsift,"Cat not found after several try\n");
 	        	lastvalue.cat_data.red=0;
 	        	lastvalue.cat_data.blue=0;
 	        	lastvalue.cat_data.x=0;
 	        	lastvalue.cat_data.y=0;
 	        	newdata=true;
-	        	return false
+	        	return false;
 	        }
         	failureSequence++;
         }
@@ -379,12 +379,12 @@ bool recalibration(char (&opencvstringsift)[200]){
 	        if((abs(bluediff)>4)||(abs(reddiff)>4)){
 	            awbcolorchange(bluediff, reddiff);
 	            lastvalue.cat_data.red=redbalance.set.value;
-	        	lastvalue.cat_data.blue=bluebalance.set.value;
-	        	pthread_mutex_lock(&mutex_udpout);
-	        	lastvalue.cat_data.x=newReferenceCenter.x;
-	        	lastvalue.cat_data.y=newReferenceCenter.y;
-	        	pthread_mutex_unlock(&mutex_udpout);
-	        	newdata=true;
+  	        	lastvalue.cat_data.blue=bluebalance.set.value;
+  	        	pthread_mutex_lock(&mutex_udpout);
+  	        	lastvalue.cat_data.x=newReferenceCenter.x;
+  	        	lastvalue.cat_data.y=newReferenceCenter.y;
+  	        	pthread_mutex_unlock(&mutex_udpout);
+  	        	newdata=true;
 	        }
 	        else{
 	            return true;
