@@ -17,8 +17,7 @@ void *udpclientThread(void *t){
 	struct sockaddr_in si_other, si_client;
 	int s; 
 	socklen_t slen  =sizeof(si_other);
-	socklen_t slenget  =sizeof(si_client);
-	
+
 	newdata=false;
 
 	sprintf(udpstatestring,"Initialising UDP");
