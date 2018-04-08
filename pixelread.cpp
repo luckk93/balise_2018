@@ -143,6 +143,24 @@ while(!quitProgram){
 				photocnt++;
 			}
 		}
+
+		//if present mode active take a photo
+		if(present==1)
+		{	
+			if(photocnt>=STARTIMAGE){
+				if(gottenBall[color_to_check]){
+					saveimage(bufptr,1);
+					stop_capturing (&fd);
+					uninit_device (&n_buffers, buffers);
+					close_device (&fd);
+					exit (EXIT_SUCCESS);
+				}
+				gottenBall[color_to_check]=false;
+			}
+			else{
+				photocnt++;
+			}
+		}
 		
 		if(takephoto==1){						//if takephoto flac active take a photo after warm-up
 			photocnt++;

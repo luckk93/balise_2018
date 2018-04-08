@@ -68,7 +68,8 @@
   extern int wifi;				    //wifi flag activation
   extern int takephoto;       //takephoto flag disactivation
   extern int debuger;			    //debug flag disactiovation
-  extern int absent;		      //absence flac disactivation
+  extern int absent;		      //absence flag disactivation
+  extern int present;          //present flag disactivation
   extern int color_to_check;  //absest ball index
   
   extern bool quitProgram;
@@ -118,7 +119,8 @@
   
   extern int ballinfonum;
   extern int ballinfo[20][2][2];
-  extern data lastvalue;	
+  extern data lastvalue;
+  extern cat_info receivedCatInfo;	
   extern bool gottenBall[BALLNUMBER];	
   
   //initwithfiles
@@ -172,9 +174,5 @@
   
   //pixelanalyse
   void simplePixelAnalysis();
-
-  //siftcat.cpp
-  void getCatData();
-
 
 #endif
