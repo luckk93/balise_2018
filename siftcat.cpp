@@ -324,7 +324,7 @@ bool recalibration(char (&opencvstringsift)[200]){
     static Point newReferenceCenter;
     static int newReferenceSize;
     static int show_save_mode =0;
-    int failureSequence
+    int failureSequence=0;
     Mat siftImg;
     
     if(!siftinit){
