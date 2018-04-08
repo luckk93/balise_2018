@@ -14,7 +14,7 @@ void *udpclientThread(void *t){
 	int udpsize = sizeof(struct data);
 	int udpgetsize = sizeof(struct cat_info);
 
-	struct sockaddr_in si_other, si_client;
+	struct sockaddr_in si_other;
 	int s; 
 	socklen_t slen  =sizeof(si_other);
 
