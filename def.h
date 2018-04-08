@@ -175,4 +175,6 @@
   //pixelanalyse
   void simplePixelAnalysis();
 
+  void awbcolorchange(int bluediff, int reddiff);
+
 #endif

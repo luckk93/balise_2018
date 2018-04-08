@@ -1,10 +1,8 @@
 #include "def.h"
 
 char ballinfostring[4][60];
-
+cat_info receivedCatInfo;	
 bool newdata;
-
-void getCatData();
 
 void *udpclientThread(void *t){
 	int tic=0;						//variable to conmfirm de correct fonctionment of the programe
@@ -14,7 +12,7 @@ void *udpclientThread(void *t){
 	bzero(ballinfostring,sizeof(ballinfostring));
 	timespec messagetime, nextdisplay;
 	int udpsize = sizeof(struct data);
-	int udpgetsize = sizeof(struct receivedCatInfo);
+	int udpgetsize = sizeof(struct cat_info);
 
 	struct sockaddr_in si_other, si_client;
 	int s; 
