@@ -1,7 +1,7 @@
 #include "def.h"
 #include <assert.h>
 
-#define CENTERTOLLERANCE 4;
+#define CENTERTOLLERANCE 4
 
 int actfps=0;
 
