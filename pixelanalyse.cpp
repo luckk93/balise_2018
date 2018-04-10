@@ -145,6 +145,9 @@ void simplePixelAnalysis(){
 										DEBUG(" m ");
 										ballinfonum++;
 										gottenBall[ball_index]=true;
+										if(color_to_check==ball_index){
+											newcenter=(cylinderbeg+cylinderend)>>1;
+										}
 									}
 									ballcolor=0;
 								}
