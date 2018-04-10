@@ -163,7 +163,6 @@ while(!quitProgram){
 
 		//if static mode active take a photo
 		if(staticBallFlag==1){	
-			prev_buff_index=buf.index;
 			if(photocnt>=STARTIMAGE){
 				if(gottenBall[color_to_check]){
 					saveimage(bufptr,2);
@@ -179,6 +178,7 @@ while(!quitProgram){
 			else{
 				photocnt++;
 			}
+			prev_buff_index=buf.index;
 		}
 		
 		if(takephoto==1){						//if takephoto flac active take a photo after warm-up
