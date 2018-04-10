@@ -1,5 +1,7 @@
 #include "def.h"
 
+#define MINCYLINDERSIZE 40
+
 int ballinfonum;
 int	ballinfo[20][2][2];
 data lastvalue;
@@ -82,9 +84,7 @@ void simplePixelAnalysis(){
         			//xlowend=x-1;
 					//printf("%d iter from %d to %d  \n",iterpos.size(), iterpos[0], iterpos[iterpos.size()-1]);
 					DEBUG(" e ");
-                    int upColor=0;
                     vector<int> iterdist=getIterationDistance(iterpos);
-
                     while(!iterpos.empty()){
                     	int seqUpColor;
                     	vector<int> yPosIter;
@@ -353,7 +353,7 @@ int checkRealIteration(int y, vector<int> &posVector, colorRange low, colorRange
     if(iterCylinderWidth>MINCYLINDERSIZE){
     	int columnHeightMin = iterCylinderWidth / 6;
     	int i = 1;
-    	while(posVector.size()>i){
+    	while((int)posVector.size()>i){
     		int yUpGood, yDownGood;
     		int yUpBad, yDownBad;
     		int x = (posVector[i-1]+posVector[i])/2;
