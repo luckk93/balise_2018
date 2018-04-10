@@ -135,6 +135,7 @@ while(!quitProgram){
 		if(absent==1){	
 			if(photocnt>=STARTIMAGE){
 				if(!gottenBall[color_to_check]){
+					quitProgram=true;
 					saveimage(bufptr,1);
 					stop_capturing (&fd);
 					uninit_device (&n_buffers, buffers);
@@ -152,6 +153,7 @@ while(!quitProgram){
 		if(present==1){	
 			if(photocnt>=STARTIMAGE){
 				if(gottenBall[color_to_check]){
+					quitProgram=true;
 					saveimage(bufptr,1);
 					stop_capturing (&fd);
 					uninit_device (&n_buffers, buffers);
@@ -169,6 +171,7 @@ while(!quitProgram){
 		if(staticBallFlag==1){	
 			if(photocnt>=STARTIMAGE){
 				if((oldcenter+CENTERTOLLERANCE>newcenter)&&(oldcenter-CENTERTOLLERANCE<newcenter)){
+					quitProgram=true;
 					saveimage(bufptr,2);
 					bufptr = (char*) buffers[prev_buff_index].start;
 					saveimage(bufptr,1);
@@ -189,6 +192,7 @@ while(!quitProgram){
 			photocnt++;
 			if(photocnt>=STARTIMAGE)
 			{
+				quitProgram=true;
 				saveimage(bufptr,1);
 				stop_capturing (&fd);
 				uninit_device (&n_buffers, buffers);
