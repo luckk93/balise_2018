@@ -153,9 +153,14 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
           }
       }
 
-      calibrcolor[0]=(sumr/sumcounter);
-      calibrcolor[1]=(sumg/sumcounter);
-      calibrcolor[2]=(sumb/sumcounter);
+      if(sumcounter!=0){
+        calibrcolor[0]=(sumr/sumcounter);
+        calibrcolor[1]=(sumg/sumcounter);
+        calibrcolor[2]=(sumb/sumcounter);
+      }
+      else{
+        return false;
+      }
 
       if(show_save!=0){
           float ratio_resize;

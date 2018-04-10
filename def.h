@@ -85,6 +85,7 @@
   extern int message[MESSAGESIZE];
   extern int actfps;
   extern uint32_t n_buffers;
+  extern int newcenter;
   
   //initcamera.cpp
   extern int fd;
