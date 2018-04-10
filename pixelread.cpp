@@ -8,6 +8,7 @@ struct buffer *buffers = NULL;
 struct v4l2_buffer buf;//needed for memory mapping
 int message[MESSAGESIZE];		//message buffer
 uint32_t            n_buffers;
+int prev_buff_index;
 
 void errno_exit (const char *s)
 {
@@ -127,10 +128,46 @@ while(!quitProgram){
 		DEBUG(" z ");		
 	   
 		//if  absence mode active take a photo
-		if(absent==1)
-		{	
+		if(absent==1){	
 			if(photocnt>=STARTIMAGE){
 				if(!gottenBall[color_to_check]){
+					saveimage(bufptr,1);
+					stop_capturing (&fd);
+					uninit_device (&n_buffers, buffers);
+					close_device (&fd);
+					exit (EXIT_SUCCESS);
+				}
+				gottenBall[color_to_check]=false;
+			}
+			else{
+				photocnt++;
+			}
+		}
+
+		//if present mode active take a photo
+		if(present==1){	
+			if(photocnt>=STARTIMAGE){
+				if(gottenBall[color_to_check]){
+					saveimage(bufptr,1);
+					stop_capturing (&fd);
+					uninit_device (&n_buffers, buffers);
+					close_device (&fd);
+					exit (EXIT_SUCCESS);
+				}
+				gottenBall[color_to_check]=false;
+			}
+			else{
+				photocnt++;
+			}
+		}
+
+		//if static mode active take a photo
+		if(staticBallFlag==1){	
+			prev_buff_index=buf.index;
+			if(photocnt>=STARTIMAGE){
+				if(gottenBall[color_to_check]){
+					saveimage(bufptr,2);
+					bufptr = (char*) buffers[prev_buff_index].start;
 					saveimage(bufptr,1);
 					stop_capturing (&fd);
 					uninit_device (&n_buffers, buffers);
