@@ -67,6 +67,7 @@ void *udpclientThread(void *t){
 					sprintf(udpstatestring,"Recepition failed");
 				}
 				else{
+					if()
 					bluebalance.set.value=receivedCatInfo.blue;
 					redbalance.set.value=receivedCatInfo.red;
 					awbcolorchange(0, 0);

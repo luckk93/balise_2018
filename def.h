@@ -70,6 +70,8 @@
   extern int debuger;			    //debug flag disactiovation
   extern int absent;		      //absence flag disactivation
   extern int present;          //present flag disactivation
+  extern int staticBallFlag; //static flag disactivation
+
   extern int color_to_check;  //absest ball index
   
   extern bool quitProgram;
