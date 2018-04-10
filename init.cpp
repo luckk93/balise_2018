@@ -9,10 +9,11 @@ int takephoto=0;		//takephoto flag disactivation
 int debuger=0;			//debug flag disactiovation
 int absent=0;			//absence flag disactivation
 int present=0;			//present flag disactivation
+int staticBallFlag=0;	//static flag disactivation
 int color_to_check=0;
 
 //used by getopt_long to know the possible inputs
-static const char short_options [] = "dta:p:wh";
+static const char short_options [] = "dta:p:S:wh";
 
 //also needed to parse command line arguments with getopt_long
 static const struct option
@@ -22,6 +23,7 @@ long_options [] =
 	{ "take",        	no_argument,            NULL,           't' },
 	{ "absent",       no_argument,            NULL,           'a' },
 	{ "present",       no_argument,            NULL,           'p' },
+	{ "static",       no_argument,            NULL,           's' },
 	{ "wifi",        	no_argument,            NULL,           'w' },		
 	{ "help",        	no_argument,            NULL,           'h' },
 	{ 0, 0, 0 ,0}
@@ -37,8 +39,9 @@ static void usage (FILE *fp, int argc, char **argv)
 				"-d | --debugmode  name                 active debugmode\n"
 				"-w | --wifi  name                      wifi active\n"
 				"-t | --takephoto  name                 takephoto\n"
-				"-t | --absent  name                 absent\n"
-				"-t | --present  name                 present\n"
+				"-a | --absent  name                 absent\n"
+				"-p | --present  name                 present\n"
+				"-s | --static  name                 static\n"
 				"-h | --help                            Print this message\n"
 				"\n",
 				argv[0]);
@@ -84,6 +87,11 @@ void initChosed(int argc, char *argv[]){
 
 			case 'p':
 				present=1;			//set present flag active
+				color_to_check=optarg[0]-49;
+				break;
+
+			case 's':
+				staticBallFlag=1;			//set present flag active
 				color_to_check=optarg[0]-49;
 				break;
 				
