@@ -13,7 +13,7 @@ int staticBallFlag=0;	//static flag disactivation
 int color_to_check=0;
 
 //used by getopt_long to know the possible inputs
-static const char short_options [] = "dta:p:S:wh";
+static const char short_options [] = "dta:p:s:wh";
 
 //also needed to parse command line arguments with getopt_long
 static const struct option
@@ -39,9 +39,9 @@ static void usage (FILE *fp, int argc, char **argv)
 				"-d | --debugmode  name                 active debugmode\n"
 				"-w | --wifi  name                      wifi active\n"
 				"-t | --takephoto  name                 takephoto\n"
-				"-a | --absent  name                 absent\n"
-				"-p | --present  name                 present\n"
-				"-s | --static  name                 static\n"
+				"-a | --absent  name                 	absent\n"
+				"-p | --present  name                 	present\n"
+				"-s | --static  name                 	static\n"
 				"-h | --help                            Print this message\n"
 				"\n",
 				argv[0]);
