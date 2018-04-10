@@ -1,6 +1,8 @@
 #include "def.h"
 #include <assert.h>
 
+#define CENTERTOLLERANCE 4
+
 int actfps=0;
 
 char* bufptr = (char*) malloc (WIDTH*HEIGHT*4);	
@@ -9,6 +11,7 @@ struct v4l2_buffer buf;//needed for memory mapping
 int message[MESSAGESIZE];		//message buffer
 uint32_t            n_buffers;
 int prev_buff_index;
+int newcenter;
 
 void errno_exit (const char *s)
 {
@@ -34,6 +37,7 @@ void *captureThread(void *t)
   char                dev_name[]            = "/dev/video0";
   struct timeval start , stop;		//time counter to FPS deterrmination
   int fpscount=0;			//FPS counter and printing value
+  int oldcenter;
 
   
   open_device (&fd, dev_name);
@@ -163,9 +167,8 @@ while(!quitProgram){
 
 		//if static mode active take a photo
 		if(staticBallFlag==1){	
-			prev_buff_index=buf.index;
 			if(photocnt>=STARTIMAGE){
-				if(gottenBall[color_to_check]){
+				if((oldcenter+CENTERTOLLERANCE>newcenter)&&(oldcenter-CENTERTOLLERANCE<newcenter)){
 					saveimage(bufptr,2);
 					bufptr = (char*) buffers[prev_buff_index].start;
 					saveimage(bufptr,1);
@@ -174,11 +177,12 @@ while(!quitProgram){
 					close_device (&fd);
 					exit (EXIT_SUCCESS);
 				}
-				gottenBall[color_to_check]=false;
 			}
 			else{
 				photocnt++;
 			}
+			prev_buff_index=buf.index;
+			oldcenter=newcenter;
 		}
 		
 		if(takephoto==1){						//if takephoto flac active take a photo after warm-up
