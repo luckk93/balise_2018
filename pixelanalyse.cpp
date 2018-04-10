@@ -79,9 +79,9 @@ void simplePixelAnalysis(){
         while(x<WIDTH){			//search all image width
         	if(checkTillRight(x, y, step, rangeLow)){
                 //printf("begin%d ",x);
-        		//xlowbeg=x;
+        		int xlowbeg=x;
         		if(checkIteration(x, y, rangeLow, rangeLow1, rangeLow2, iterpos)>=4){		//if enough number of iteration continue the analysis
-        			//xlowend=x-1;
+        			int xlowend=x-1;
 					//printf("%d iter from %d to %d  \n",iterpos.size(), iterpos[0], iterpos[iterpos.size()-1]);
 					DEBUG(" e ");
                     vector<int> iterdist=getIterationDistance(iterpos);
@@ -127,7 +127,7 @@ void simplePixelAnalysis(){
 			                            xtopend=iterendx;
 			                            int cylinderend=min(xlowend,xtopend);
 
-			                            
+
 			                            int ball_index=ballcolor-1;;
 
 										memset(ballinfostring[ball_index],0,sizeof(ballinfostring[ball_index]));
