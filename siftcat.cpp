@@ -153,9 +153,14 @@ bool siftAnalisys(Mat img_2, Point workingCenter, Point workingSize, Scalar &cal
           }
       }
 
-      calibrcolor[0]=(sumr/sumcounter);
-      calibrcolor[1]=(sumg/sumcounter);
-      calibrcolor[2]=(sumb/sumcounter);
+      if(sumcounter!=0){
+        calibrcolor[0]=(sumr/sumcounter);
+        calibrcolor[1]=(sumg/sumcounter);
+        calibrcolor[2]=(sumb/sumcounter);
+      }
+      else{
+        return false;
+      }
 
       if(show_save!=0){
           float ratio_resize;
@@ -349,11 +354,11 @@ bool recalibration(char (&opencvstringsift)[200]){
         }
     
         if(!siftAnalisys(siftImg, analysisCenter, analysisSize, calibrColor, newReferenceCenter,newReferenceSize,show_save_mode)){
-            //sprintf(opencvstring,"Error loading Sift3\n");
-            if(failureSequence<4){
-	            sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
-	            imwrite("nocat_image_BGR.jpg",siftImg);
-	            std::ofstream ofs;
+          //sprintf(opencvstring,"Error loading Sift3\n");
+          if(failureSequence<4){
+            sprintf(opencvstringsift,"Error Sift2 center %d %d  size  %d  %d, referenceSize %d \n",analysisCenter.x,analysisCenter.y, analysisSize.x, analysisSize.y , newReferenceSize );
+            imwrite("nocat_image_BGR.jpg",siftImg);
+            std::ofstream ofs;
 	        	ofs.open ("nocat.info", std::ofstream::out);
 	        	ofs << "center: " << analysisCenter.x << " " << analysisCenter.y << endl; 
 	        	ofs << "size: " << analysisSize.x << " " << analysisSize.y << endl;
@@ -362,10 +367,12 @@ bool recalibration(char (&opencvstringsift)[200]){
 	        }
 	        else{
 	        	sprintf(opencvstringsift,"Cat not found after several try\n");
+            pthread_mutex_lock(&mutex_udpout);
 	        	lastvalue.cat_data.red=0;
 	        	lastvalue.cat_data.blue=0;
 	        	lastvalue.cat_data.x=0;
 	        	lastvalue.cat_data.y=0;
+            pthread_mutex_unlock(&mutex_udpout);
 	        	newdata=true;
 	        	return false;
 	        }
@@ -373,14 +380,14 @@ bool recalibration(char (&opencvstringsift)[200]){
         }
         else{
         	failureSequence=0;
-            sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
+          sprintf(opencvstringsift,"Founded cycle cat of size %d on x:%d y:%d with colour %.0f %.0f %.0f\n", newReferenceSize, newReferenceCenter.x, newReferenceCenter.y, calibrColor[0], calibrColor[1], calibrColor[2]);
 	        int bluediff=(calibrColor[1]-calibrColor[0]);
 	        int reddiff=(calibrColor[1]-calibrColor[2]);
 	        if((abs(bluediff)>4)||(abs(reddiff)>4)){
 	            awbcolorchange(bluediff, reddiff);
-	            lastvalue.cat_data.red=redbalance.set.value;
-  	        	lastvalue.cat_data.blue=bluebalance.set.value;
   	        	pthread_mutex_lock(&mutex_udpout);
+              lastvalue.cat_data.red=redbalance.set.value;
+              lastvalue.cat_data.blue=bluebalance.set.value;
   	        	lastvalue.cat_data.x=newReferenceCenter.x;
   	        	lastvalue.cat_data.y=newReferenceCenter.y;
   	        	pthread_mutex_unlock(&mutex_udpout);
@@ -398,10 +405,12 @@ bool recalibration(char (&opencvstringsift)[200]){
           newReferenceSize=analysisSize.x;
         }
         newReferenceSize=newReferenceSize<<1;
-        if(newReferenceSize>WIDTH){
-          newReferenceSize=WIDTH;
+
+        if(newReferenceSize>(WIDTH>>3)){
+          newReferenceSize=WIDTH>>3;
         }
     
+        //this part need to be improved
         int xsize=newReferenceSize, ysize=newReferenceSize;
         if(analysisCenter.x<xsize){
           xsize=analysisCenter.x;

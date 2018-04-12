@@ -79,9 +79,9 @@ void simplePixelAnalysis(){
         while(x<WIDTH){			//search all image width
         	if(checkTillRight(x, y, step, rangeLow)){
                 //printf("begin%d ",x);
-        		//xlowbeg=x;
+        		int xlowbeg=x;
         		if(checkIteration(x, y, rangeLow, rangeLow1, rangeLow2, iterpos)>=4){		//if enough number of iteration continue the analysis
-        			//xlowend=x-1;
+        			int xlowend=x-1;
 					//printf("%d iter from %d to %d  \n",iterpos.size(), iterpos[0], iterpos[iterpos.size()-1]);
 					DEBUG(" e ");
                     vector<int> iterdist=getIterationDistance(iterpos);
@@ -105,19 +105,17 @@ void simplePixelAnalysis(){
 			                            int iterendx=colorSequence[iterendindex];
 			                            ytopbeg=yPosIter[0];
 			                            ytopend=yPosIter[iterendindex];
-			                            if(ytopbeg<ytopend){
-			                                ytopmax=ytopbeg;
-			                            }
-			                            else{
-			                               ytopmax=ytopend;
-			                            }
+			                            ytopmax=min(ytopbeg,ytopend);
 			                            iterbegx+=4;
 			                            getHSV(iterbegx,ytopmax,pointColor);
 			                            while(myInRange(pointColor, colorsUp[i])&&(iterbegx>=0)){				//get left top limit to determinate the rope of the circle
 			                                iterbegx--;
 			                                getHSV(iterbegx,ytopmax,pointColor);
 			                            }
-			                            xtopbeg=iterbegx+1;
+			                            iterbegx++;
+			                            xtopbeg=iterbegx;
+
+			                            int cylinderbeg=max(xlowbeg,xtopbeg);
 			                            iterendx-=4;
 			                            DEBUG(" h ");
 			                            getHSV(iterendx,ytopmax,pointColor);
@@ -125,24 +123,31 @@ void simplePixelAnalysis(){
 			                                iterendx++;
 			                                getHSV(iterendx,ytopmax,pointColor);
 			                            }
-			                            xtopend=iterendx-1;
+			                            iterendx--;
+			                            xtopend=iterendx;
+			                            int cylinderend=min(xlowend,xtopend);
+
+
 			                            int ball_index=ballcolor-1;;
 
 										memset(ballinfostring[ball_index],0,sizeof(ballinfostring[ball_index]));
 										lastvalue.camera_id=ipvalue;
 										lastvalue.boules[ball_index].boule_id=ballcolor;
 										lastvalue.boules[ball_index].boule_data[0]=ytopbeg;
-										lastvalue.boules[ball_index].boule_data[1]=xtopbeg;
+										lastvalue.boules[ball_index].boule_data[1]=cylinderbeg;
 										lastvalue.boules[ball_index].boule_data[2]=ytopend;
-										lastvalue.boules[ball_index].boule_data[3]=xtopend;
+										lastvalue.boules[ball_index].boule_data[3]=cylinderend;
 										lastvalue.boules[ball_index].boule_data[4]=1;
 										lastvalue.boules[ball_index].boule_data[5]=1;
 										lastvalue.boules[ball_index].boule_data[6]=1;
 										lastvalue.boules[ball_index].boule_data[7]=1;
-										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d",ipvalue,ballcolor,ytopbeg,ytopend,xtopbeg,xtopend,yPosIter.size());
+										sprintf(ballinfostring[ball_index],"%d color: %i   \ty=%d  %d from %d to %d  iter:%d",ipvalue,ballcolor,ytopbeg,ytopend,cylinderbeg,cylinderend,yPosIter.size());
 										DEBUG(" m ");
 										ballinfonum++;
 										gottenBall[ball_index]=true;
+										if(color_to_check==ball_index){
+											newcenter=(cylinderbeg+cylinderend)>>1;
+										}
 									}
 									ballcolor=0;
 								}

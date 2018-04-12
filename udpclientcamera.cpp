@@ -5,6 +5,7 @@ cat_info receivedCatInfo;
 bool newdata;
 
 void *udpclientThread(void *t){
+	int packet_counter=0;
 	int tic=0;						//variable to conmfirm de correct fonctionment of the programe
 	char tempbuffer[100];
 	char terminalbuffer[2000];
@@ -29,7 +30,7 @@ void *udpclientThread(void *t){
 
 	struct timeval tv;
     tv.tv_sec = 0;
-    tv.tv_usec = 100000;
+    tv.tv_usec = 10000;
     
     if(setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
         sprintf(udpstatestring, "Could not set timeout on socket.");
@@ -55,6 +56,9 @@ void *udpclientThread(void *t){
 			}
 			else{
 				sprintf(udpstatestring,"Sending correcly");
+				if(udpcheck==1){
+					packet_counter++;
+				}
 			}
 			newdata=false;
 			memset(&lastvalue.boules, 0, sizeof(lastvalue.boules));
@@ -74,6 +78,10 @@ void *udpclientThread(void *t){
 				}
 				
 			}
+		}
+
+		if(packet_counter>=1000){
+			quitProgram=true;
 		}
 		
 		usleep(1000);

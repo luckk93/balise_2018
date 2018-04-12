@@ -66,6 +66,7 @@
   
   //init.cpp
   extern int wifi;				    //wifi flag activation
+  extern int udpcheck;          //udp check flag
   extern int takephoto;       //takephoto flag disactivation
   extern int debuger;			    //debug flag disactiovation
   extern int absent;		      //absence flag disactivation
@@ -85,6 +86,7 @@
   extern int message[MESSAGESIZE];
   extern int actfps;
   extern uint32_t n_buffers;
+  extern int newcenter;
   
   //initcamera.cpp
   extern int fd;

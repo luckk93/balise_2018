@@ -5,6 +5,7 @@
 
 
 int wifi=0;					//wifi flag activation
+int udpcheck=0;					//udp check flag
 int takephoto=0;		//takephoto flag disactivation
 int debuger=0;			//debug flag disactiovation
 int absent=0;			//absence flag disactivation
@@ -13,7 +14,7 @@ int staticBallFlag=0;	//static flag disactivation
 int color_to_check=0;
 
 //used by getopt_long to know the possible inputs
-static const char short_options [] = "dta:p:S:wh";
+static const char short_options [] = "dta:p:s:wuh";
 
 //also needed to parse command line arguments with getopt_long
 static const struct option
@@ -38,10 +39,11 @@ static void usage (FILE *fp, int argc, char **argv)
 				"Options:\n"
 				"-d | --debugmode  name                 active debugmode\n"
 				"-w | --wifi  name                      wifi active\n"
+				"-w | --udp  name                      udp test\n"
 				"-t | --takephoto  name                 takephoto\n"
-				"-a | --absent  name                 absent\n"
-				"-p | --present  name                 present\n"
-				"-s | --static  name                 static\n"
+				"-a | --absent  name                 	absent\n"
+				"-p | --present  name                 	present\n"
+				"-s | --static  name                 	static\n"
 				"-h | --help                            Print this message\n"
 				"\n",
 				argv[0]);
@@ -74,6 +76,10 @@ void initChosed(int argc, char *argv[]){
 				
 			case 'w':
 				wifi=1;			//set wifi flag active
+				break;
+
+			case 'u':
+				udpcheck=1;			//set wifi flag active
 				break;
 			
 			case 't':
