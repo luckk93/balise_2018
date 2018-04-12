@@ -66,6 +66,7 @@
   
   //init.cpp
   extern int wifi;				    //wifi flag activation
+  extern int udpcheck=0;          //udp check flag
   extern int takephoto;       //takephoto flag disactivation
   extern int debuger;			    //debug flag disactiovation
   extern int absent;		      //absence flag disactivation
