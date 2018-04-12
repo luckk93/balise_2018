@@ -80,7 +80,7 @@ void *udpclientThread(void *t){
 			}
 		}
 
-		if(packet_counter>=10000){
+		if(packet_counter>=1000){
 			quitProgram=true;
 		}
 		
