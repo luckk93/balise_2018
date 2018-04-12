@@ -37,10 +37,10 @@
   
   #define MESSAGESIZE 55		//size of message to send to server
   
-  #define Y_FROM 500      //image height to start beacon search
-  #define Y_TO 1300       //image height to end beacon search
-  #define Y_STEP_MIN 4        //minimal steps for beacon search
-  #define Y_STEP_MAX 40     //maximal steps for beacon search
+  #define Y_FROM 300      //image height to start beacon search
+  #define Y_TO 1500       //image height to end beacon search
+  #define Y_STEP_MIN 2        //minimal steps for beacon search
+  #define Y_STEP_MAX 30     //maximal steps for beacon search
   
   #define WIDTH 2592			//image size
   #define HEIGHT 1944
@@ -66,9 +66,13 @@
   
   //init.cpp
   extern int wifi;				    //wifi flag activation
+  extern int udpcheck;          //udp check flag
   extern int takephoto;       //takephoto flag disactivation
   extern int debuger;			    //debug flag disactiovation
-  extern int absent;		      //absence flac disactivation
+  extern int absent;		      //absence flag disactivation
+  extern int present;          //present flag disactivation
+  extern int staticBallFlag; //static flag disactivation
+
   extern int color_to_check;  //absest ball index
   
   extern bool quitProgram;
@@ -82,6 +86,7 @@
   extern int message[MESSAGESIZE];
   extern int actfps;
   extern uint32_t n_buffers;
+  extern int newcenter;
   
   //initcamera.cpp
   extern int fd;
@@ -101,16 +106,25 @@
   struct colorRange{
     hsvColor low, high;
   };
+
+  struct cat_info{
+    int x;
+    int y;
+    int red;
+    int blue;
+  } ;
   
   struct data {
   unsigned int camera_id;
-  struct boule boules[6];
+  boule boules[6];
   int pattern[3];
+  cat_info cat_data;
   };
   
   extern int ballinfonum;
   extern int ballinfo[20][2][2];
-  extern data lastvalue;	
+  extern data lastvalue;
+  extern cat_info receivedCatInfo;	
   extern bool gottenBall[BALLNUMBER];	
   
   //initwithfiles
@@ -165,5 +179,6 @@
   //pixelanalyse
   void simplePixelAnalysis();
 
+  void awbcolorchange(int bluediff, int reddiff);
 
 #endif

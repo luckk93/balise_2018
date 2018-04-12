@@ -1,10 +1,11 @@
 #include "def.h"
 
 char ballinfostring[4][60];
-
+cat_info receivedCatInfo;	
 bool newdata;
 
 void *udpclientThread(void *t){
+	int packet_counter=0;
 	int tic=0;						//variable to conmfirm de correct fonctionment of the programe
 	char tempbuffer[100];
 	char terminalbuffer[2000];
@@ -12,10 +13,12 @@ void *udpclientThread(void *t){
 	bzero(ballinfostring,sizeof(ballinfostring));
 	timespec messagetime, nextdisplay;
 	int udpsize = sizeof(struct data);
+	int udpgetsize = sizeof(struct cat_info);
 
 	struct sockaddr_in si_other;
-	int s, slen  =sizeof(si_other);
-	
+	int s; 
+	socklen_t slen  =sizeof(si_other);
+
 	newdata=false;
 
 	sprintf(udpstatestring,"Initialising UDP");
@@ -24,6 +27,14 @@ void *udpclientThread(void *t){
 		fprintf(stderr,"Socket init failed.\n");
 		sprintf(udpstatestring,"Socket init failed");
 	}
+
+	struct timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = 10000;
+    
+    if(setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
+        sprintf(udpstatestring, "Could not set timeout on socket.");
+    }
 
 	memset((char *) &si_other, 0, sizeof(si_other));
 	si_other.sin_family = AF_INET;
@@ -45,10 +56,32 @@ void *udpclientThread(void *t){
 			}
 			else{
 				sprintf(udpstatestring,"Sending correcly");
+				if(udpcheck==1){
+					packet_counter++;
+				}
 			}
 			newdata=false;
-			memset(&lastvalue, 0, sizeof(lastvalue));
+			memset(&lastvalue.boules, 0, sizeof(lastvalue.boules));
+			memset(&lastvalue.pattern, 0, sizeof(lastvalue.pattern));
+			lastvalue.cat_data.x=0;
+			lastvalue.cat_data.y=0;
 			pthread_mutex_unlock(&mutex_udpout);
+			if(lastvalue.cat_data.red==0){
+				if(recv(s, &receivedCatInfo,  udpgetsize , 0)==-1){
+					sprintf(udpstatestring,"Recepition failed");
+				}
+				else{
+					if((receivedCatInfo.red>100)&&(receivedCatInfo.red<5000)&&(receivedCatInfo.blue>100)&&(receivedCatInfo.blue<5000))
+					bluebalance.set.value=receivedCatInfo.blue;
+					redbalance.set.value=receivedCatInfo.red;
+					awbcolorchange(0, 0);
+				}
+				
+			}
+		}
+
+		if(packet_counter>=1000){
+			quitProgram=true;
 		}
 		
 		usleep(1000);
